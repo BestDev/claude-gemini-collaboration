@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__mcp_server_mysql_multi__mysql_query"
+    ],
+    "deny": []
+  }
+}
