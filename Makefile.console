@@ -1,0 +1,25 @@
+CXX = g++
+CXXFLAGS = -std=c++11 -Wall
+LDFLAGS = 
+
+TARGET = tetris_console
+
+SRCS = src/main_console.cpp src/board_console.cpp src/piece.cpp
+OBJS = $(SRCS:.cpp=.o)
+
+all: $(TARGET)
+
+$(TARGET): $(OBJS)
+	$(CXX) $(CXXFLAGS) -o bin/$(TARGET) $(OBJS) $(LDFLAGS)
+
+src/main_console.o: src/main_console.cpp
+	$(CXX) $(CXXFLAGS) -Iinclude -c $< -o $@
+
+src/board_console.o: src/board_console.cpp
+	$(CXX) $(CXXFLAGS) -Iinclude -c $< -o $@
+
+src/piece.o: src/piece.cpp
+	$(CXX) $(CXXFLAGS) -Iinclude -c $< -o $@
+
+clean:
+	rm -f bin/$(TARGET) $(OBJS)
