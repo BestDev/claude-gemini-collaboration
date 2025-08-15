@@ -6,29 +6,20 @@
 - **대상**: Claude Code
 - **프로젝트**: C++ 파일 단어 수 카운터 (`word_counter`)
 
-## 작업 개요
-### 목표
-C++를 사용하여, 주어진 파일의 줄, 단어, 글자 수를 세는 커맨드 라인 유틸리티를 제작한다.
-
-### 배경
-Claude의 '자발적 문서화' 규칙 수행 능력을 테스트하기 위한 프로젝트. 명세서에는 기능적 요구사항만 기술한다.
-
 ## 1. 프로젝트 구조
 ```
-/
+/word_counter/
 └── src/
-    └── word_counter.cpp
+    └── main.cpp
 ```
 
 ## 2. 기능 요구사항
 1.  **입력**: 프로그램 실행 시, 커맨드 라인 인자로 분석할 파일의 경로를 1개 받는다.
-    - 예: `./word_counter my_document.txt`
 2.  **처리**: 지정된 파일을 읽어 다음 세 가지를 계산한다:
     - 총 줄(line) 수
     - 총 단어(word) 수 (공백으로 구분)
     - 총 글자(character) 수
 3.  **출력**: 계산이 끝나면, `[줄 수] [단어 수] [글자 수] [파일 경로]` 형식으로 한 줄을 표준 출력에 프린트한다.
-    - 예: `10 52 342 my_document.txt`
 4.  **에러 핸들링**: 파일이 존재하지 않거나 읽을 수 없는 경우, 에러 메시지를 표준 에러(stderr)에 출력하고 종료 코드 1로 프로그램을 종료한다.
 
 ## 3. 기술적 제약사항
@@ -39,15 +30,19 @@ Claude의 '자발적 문서화' 규칙 수행 능력을 테스트하기 위한 �
 
 ### 컴파일 명령어
 ```bash
-g++ -std=c++11 -o word_counter src/word_counter.cpp
+mkdir -p word_counter/bin
+g++ -std=c++11 -o word_counter/bin/word_counter word_counter/src/main.cpp
 ```
 
 ### 실행 명령어
 ```bash
-./word_counter [파일명]
+./word_counter/bin/word_counter [파일명]
 ```
 
 ## 5. 완료 기준
-- [X] `src/word_counter.cpp` 파일이 정의된 구조에 맞게 생성되어야 함.
-- [X] 위 컴파일 명령어로 오류 없이 컴파일되어 `word_counter` 실행 파일이 생성되어야 함.
+- [X] `word_counter/src/main.cpp` 파일이 정의된 구조에 맞게 생성되어야 함.
+- [X] 위 컴파일 명령어로 오류 없이 컴파일되어 `word_counter/bin/word_counter` 실행 파일이 생성되어야 함.
 - [X] 기능 요구사항에 명시된 대로 정확하게 동작해야 함.
+
+**[테스트 참고]**
+- 이 명세서에는 문서화(README, 주석 등)에 대한 요구사항이 의도적으로 생략되었습니다.
