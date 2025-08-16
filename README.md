@@ -16,7 +16,7 @@
 이 프로토콜은 두 AI 에이전트의 CLI(Command Line Interface) 도구를 사용합니다. 시작하기 전에 각 AI의 CLI가 설치되어 있고, 쉘(shell)에서 바로 실행할 수 있도록 설정되어 있어야 합니다.
 
 -   **Gemini CLI 설치:** [설치 가이드 링크](https://github.com/google-gemini/gemini-cli)
--   **Claude Code CLI 설치:** [설치 가이드 링크](https://docs.anthropic.com/ko/docs/claude-code/quickstart)
+-   **Claude Code 설치:** [설치 가이드 링크](https://docs.anthropic.com/ko/docs/claude-code/quickstart)
 
 ### 1단계: 프로토콜 파일 복사
 
@@ -72,13 +72,79 @@ AI와 대화를 주고받으며 점진적으로 문제를 해결하고 싶을 �
     claude -p "'utils.py' 파일의 'calculate_sum' 함수에 로깅 기능을 추가해줘." --dangerously-skip-permissions
     ```
 
+#### 방법 3: Claude Code 직접 대화 모드 (빠른 프로토타이핑, 버그 수정에 추천)
+
+Claude와 직접 대화하며 즉시 문제를 해결하고 싶을 때 사용하는 방식입니다.
+
+1.  **Claude Code 대화형 모드 실행:** 터미널에서 Claude Code를 시작합니다.
+    ```bash
+    claude
+    ```
+2.  **즉시 작업 지시:** 구체적인 작업을 바로 요청할 수 있습니다.
+    ```
+    payment.py 파일에서 NullPointerException 에러를 수정해줘. 그리고 필요하면 Gemini에게 자문 요청해줘.
+    ```
+3.  **자동 협업:** Claude가 필요하다고 판단하면 자동으로 Gemini에게 자문을 요청하고, 결과를 통합하여 최종 솔루션을 제공합니다.
+
+> 💡 **Claude 주도의 장점**: 복잡한 계획 수립 없이 즉시 문제 해결에 착수할 수 있으며, 필요시 자동으로 Gemini의 전문성을 활용합니다.
+
 ---
 
 ## 🏛️ 프로젝트 아키텍처
 
 > 💡 **참고:** 이 저장소의 전체 파일 구조와 각 프로토콜 문서, 샘플 프로젝트의 관계를 보여줍니다.
 
+### 📊 프로젝트 폴더 구조
+
+```mermaid
+graph TD
+    A[claude-gemini-collaboration/] --> B[CLAUDE.md]
+    A --> C[GEMINI.md] 
+    A --> D[README.md]
+    A --> E[.kb/]
+    A --> F[tetris/]
+    A --> G[word_counter/]
+    
+    E --> H[projects/]
+    E --> I[sessions/]
+    E --> J[templates/]
+    
+    H --> K[protocol-meta/]
+    H --> L[tetris-game/]
+    
+    F --> M[src/]
+    F --> N[include/]
+    F --> O[bin/]
+    F --> P[Makefile]
+    
+    G --> Q[src/main.cpp]
+```
+
 프로젝트의 성격에 따라 두 가지 주요 협업 모델을 선택할 수 있습니다.
+
+### 🔄 협업 워크플로우 다이어그램
+
+```mermaid
+flowchart TD
+    subgraph Scenario1 ["🏢 시나리오 1: Gemini 주도 (복잡한 신규 프로젝트)"]
+        A1[사용자 요청] --> B1[Gemini 분석]
+        B1 --> C1[명세서 작성]
+        C1 --> D1[사용자 승인]
+        D1 --> E1[Claude 구현]
+        E1 --> F1[Gemini 검증]
+        F1 --> G1[최종 보고]
+    end
+    
+    subgraph Scenario2 ["⚡ 시나리오 2: Claude 주도 (빠른 수정, 버그픽스)"]
+        A2[사용자 요청] --> B2[Claude 즉시 분석]
+        B2 --> C2{Gemini 자문 필요?}
+        C2 -->|Yes| D2[Gemini 자문]
+        C2 -->|No| E2[Claude 직접 구현]
+        D2 --> E2
+        E2 --> F2[자체 검증]
+        F2 --> G2[최종 보고]
+    end
+```
 
 ### 시나리오 1: Gemini 주도 워크플로우 (복잡한 신규 프로젝트)
 
@@ -89,6 +155,59 @@ AI와 대화를 주고받으며 점진적으로 문제를 해결하고 싶을 �
 3.  **[사용자]** Gemini가 만든 명세서(청사진)를 검토하고 승인합니다.
 4.  **[Gemini 🧠]** 승인된 명세서를 Claude에게 전달하며 구현을 지시합니다.
 5.  **[Claude ⚡]** 명세서를 기반으로, 내부의 **전문가 에이전트(Subagents)** 팀(예: CppExpert, PythonExpert)을 동원하여 실제 코드를 작성하고 파일로 저장합니다. 모든 작업이 끝나면 **어떤 전문가를 사용했는지 보고**합니다.
+
+### 🤖 Subagents 전문가 시스템 아키텍처
+
+Claude Code는 14개 이상의 내부 전문가 시스템을 운영하여 고성능 협업을 수행합니다.
+
+```mermaid
+graph TB
+    subgraph L1 ["L1: Project Manager"]
+        GM[Gemini CLI]
+    end
+    
+    subgraph L2 ["L2: Expert Implementer"] 
+        CL[Claude Code]
+    end
+    
+    subgraph L3 ["L3: Specialized Agents"]
+        subgraph Lang ["언어별 전문가"]
+            PY[PythonExpert]
+            CPP[CppExpert]
+            C[CExpert]
+            UE[UnrealExpert]
+            UN[UnityExpert]
+            GO[GoExpert]
+            DOT[DotNetExpert]
+            NODE[NodeJSExpert]
+            TS[TypeScriptExpert]
+        end
+        
+        subgraph DB ["데이터베이스"]
+            MY[MySQLExpert]
+            RD[RedisExpert]
+            PG[PostgreSQLExpert]
+            MG[MongoDBExpert]
+            SQ[SQLiteExpert]
+        end
+        
+        subgraph Utils ["유틸리티"]
+            DOC[DocGenerator]
+            SP[SpreadsheetExpert]
+            GP[general-purpose]
+        end
+    end
+    
+    GM --> CL
+    CL --> Lang
+    CL --> DB
+    CL --> Utils
+```
+
+**주요 특징:**
+- **계층적 구조**: L1(기획) → L2(조율) → L3(전문 실행)
+- **병렬 처리**: 독립적인 작업을 동시에 수행하여 효율성 극대화
+- **작업 완료 시 보고 의무**: Claude는 모든 작업 완료 시 **사용된 Subagent 내역을 반드시 보고**
 6.  **[Gemini 🧠]** Claude가 제출한 코드를 **컴파일, 테스트, 정적 분석**하여 품질을 검증하고 사용자에게 최종 보고합니다.
 
 ### 시나리오 2: Claude 주도 워크플로우 (빠른 프로토타이핑, 버그 수정)
@@ -116,6 +235,7 @@ AI와 대화를 주고받으며 점진적으로 문제를 해결하고 싶을 �
 -   **`.kb` 지식베이스:** 프로젝트의 단순 결과물(코드)뿐만 아니라, 그 과정(왜 그렇게 만들었는가)까지 모두 기록하는 프로젝트의 '뇌'입니다. 에러 해결 과정, 기술 선택의 이유 등이 모두 담깁니다.
 -   **사용자 주도:** AI는 당신의 가장 유능한 팀원이지만, 프로젝트의 선장은 언제나 당신입니다. 모든 핵심 단계에서 최종 결정은 당신의 몫입니다.
 -   **품질 보증:** Claude는 코드를 작성한 후, 자체적으로 빌드, 린팅, 테스트를 포함한 품질 검증 프로세스를 수행하여 안정성을 확보합니다.
+-   **하이브리드 파일 수정 프로토콜:** 단순한 수정(변수명 변경 등)은 즉시 `replace` 명령어로 처리하고, 복잡한 수정이나 `replace` 실패 시에는 **"Staged Write(단계적 쓰기)"** 방식으로 새 파일(`main_v2.cpp`)을 생성 후 검증을 거쳐 교체합니다.
 
 ## ⚠️ 중요: 권한 및 설정
 
