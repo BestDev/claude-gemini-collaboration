@@ -166,7 +166,7 @@ graph TB
         GM[Gemini CLI]
     end
     
-    subgraph L2 ["L2: Expert Implementer"] 
+    subgraph L2 ["L2: Expert Implementer"]
         CL[Claude Code]
     end
     
