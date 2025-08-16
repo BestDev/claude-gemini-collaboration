@@ -15,8 +15,8 @@
 
 이 프로토콜은 두 AI 에이전트의 CLI(Command Line Interface) 도구를 사용합니다. 시작하기 전에 각 AI의 CLI가 설치되어 있고, 쉘(shell)에서 바로 실행할 수 있도록 설정되어 있어야 합니다.
 
--   **Gemini CLI 설치:** [설치 가이드 링크 (가상)](https://developers.google.com/gemini/cli)
--   **Claude Code CLI 설치:** [설치 가이드 링크 (가상)](https://www.anthropic.com/claude-code-cli)
+-   **Gemini CLI 설치:** [설치 가이드 링크](https://github.com/google-gemini/gemini-cli)
+-   **Claude Code CLI 설치:** [설치 가이드 링크](https://docs.anthropic.com/ko/docs/claude-code/quickstart)
 
 ### 1단계: 프로토콜 파일 복사
 
