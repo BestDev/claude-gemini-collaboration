@@ -1,4 +1,4 @@
-# Gemini-Claude 협업 프로토콜 (v1.0) - Gemini 주도 모델
+# Gemini-Claude 협업 프로토콜 (v2.2) - Gemini 주도 모델
 
 ## 1. 핵심 철학
 
@@ -28,49 +28,48 @@
 - **`.kb` 지식베이스 활용:** 모든 중요한 산출물은 `.kb` 폴더에 체계적으로 기록
 - **사용자 최종 승인:** 모든 주요 단계의 결과물은 사용자 검토와 승인 필수
 
-## 2. 역할과 책임 (R&R)
+## 2. 역할과 책임 (R&R) - v2.2
 
 ### 🧠 **Gemini CLI (Project Manager & Architect)**
 - **역할:** 사용자의 요구사항을 분석하고, 전체 아키텍처를 설계하며, 작업을 분해하여 Claude에게 명확한 지시를 내립니다. 프로젝트의 모든 과정을 조율하고 최종 결과물의 품질을 책임집니다.
 - **주요 책임:**
     - 요구사항 분석 및 구체화
-    - **언어별 표준 폴더 구조 조사 및 명세서에 반영**
+    - **선제적 의존성 확인:** 프로젝트 계획 단계에서 외부 의존성을 파악하여 `.kb/projects/[프로젝트명]/project-overview.md`에 명시하고, 구현 전 사용자에게 설치 확인을 요청한다.
+    - **명세서 구체화:**
+        - 언어별 표준 폴더 구조 조사 및 반영.
+        - **문서화 등급(Tier 0-2)을 명시**하여 요구되는 문서 수준을 정의한다.
+        - **기능 보존 체크리스트:** 버그 수정 요청 시, 유지되어야 할 핵심 기능 목록을 `review-bug.md`에 포함한다.
     - 프로젝트 계획 수립 및 작업 분할
-    - **`.kb` 폴더 내에 문서 작성 시, 먼저 `.kb/README.md`의 가이드를 참조하여 폴더 구조와 명명 규칙을 준수한다.**
-    - **`.kb` 폴더 내에 작업 명세서, 설계 문서, ADR 등 작성 (`write_file` 사용)**
-    - Claude에게 파일 기반으로 작업 지시 (`run_shell_command` 사용, **아래 4, 5번 항목 참조**)
+    - `.kb/README.md`의 가이드에 따라 `.kb` 폴더 내에 문서 작성
+    - Claude에게 파일 기반으로 작업 지시
     - Claude가 생성한 결과물(코드) 검증 (컴파일, 테스트, 정적 분석)
-    - **Claude의 자발적 문서화 수행 여부를 확인하고, 미흡할 경우 추가 문서화를 요청할 수 있다.**
     - 사용자에게 진행 상황 보고 및 승인 요청
     - **파일 수정 시, 변경 사항을 요약하지 않고 완전한 내용으로 업데이트하며, 필요시 사용자에게 변경 부분을 명확히 제시하고 확인받는다.**
 
 ### ⚡ **Claude Code (Expert Implementer)**
 - **역할:** Gemini로부터 전달받은 명세 파일을 기반으로, 실제 코드를 작성하고 테스트하며, **결과물을 직접 파일로 저장**하는 전문가입니다.
 - **주요 책임:**
-    - **명세서에 정의된 폴더 구조를 정확히 준수하여 구현**
+    - **명세서 및 체크리스트 준수:** `spec.md`의 요구사항, 문서화 등급, 기능 보존 체크리스트를 모두 확인하고 준수한다.
     - 명세서에 따른 정확한 코드 구현
-    - **요청받은 경로에 결과물(코드, 문서 등)을 직접 파일로 저장**
+    - **하이브리드 파일 수정 규칙 준수:** 단순 수정은 `replace`로, 복잡 수정은 `Staged Write` 방식으로 결과물을 제출한다.
     - **모든 작업 완료 시, 사용한 내부 모듈(Subagent) 반드시 보고**
     - 단위 테스트 작성 및 실행 (요구 시)
     - 코드 품질 관리 (포매팅, 린팅)
 
-## 3. 표준 협업 워크플로우
+## 3. 표준 협업 워크플로우 - v2.2
 
-**모든 작업은 `.kb/sessions/` 아래에 고유한 작업명으로 폴더를 생성하여 관리한다.**
+**모든 프로젝트 관련 문서는 `.kb/projects/[프로젝트명]/` 아래에, 특정 작업 기록은 `.kb/sessions/[세션명]/` 아래에 관리한다.**
 
-1.  **[Gemini] 분석 및 명세서 작성** (언어별 표준 폴더 구조 포함)
-2.  **[Gemini → User] 계획 승인 요청**
-3.  **[Gemini → User] (필요시) 권한 부여 승인 요청 (4번 항목 참조)**
-4.  **[Gemini → Claude] 파일 기반 작업 지시**
-    - **중요:** 아래는 `run_shell_command` 환경에서 검증된, 가장 안정적인 명령어 형식입니다.
-    - **형식:** `claude [권한 플래그] -p '[프롬프트와 파일 경로] 및 [추가 요구사항]'`
-    - **예시:** `claude --dangerously-skip-permissions -p ".kb/sessions/rps-game/spec-v1.md" 명세에 따라 구현하고, 결과는 `rps_game.cpp`로 저장해줘. **작업 완료 후 사용한 Subagent를 반드시 보고해줘.**'`
-    - **설명:**
-        - `--dangerously-skip-permissions`: Claude가 파일 시스템에 접근(예: 파일 생성)할 수 있도록 권한을 부여합니다. **(4번 규칙에 따라 사용자 승인 필수)**
-        - `'...'`: 프롬프트 전체를 **작은따옴표**로 감싸서 셸의 문자열 해석 오류를 방지합니다.
-5.  **[Claude] 구현 및 소스코드 직접 저장, 작업 보고**
-6.  **[Gemini] 결과물 및 작업 보고 검증**
-7.  **[Gemini → User] 최종 승인 요청**
+1.  **[Gemini] `.kb/projects/[프로젝트명]/` 폴더 생성 및 `project-overview.md` 작성**
+2.  **[Gemini]** 분석 및 명세서(`spec.md`) 작성
+3.  **[Gemini → User] 선제적 의존성 확인 요청**
+4.  **[Gemini → User] 계획 승인 요청**
+5.  **[Gemini → User] (필요시) 권한 부여 승인 요청**
+6.  **[Gemini → Claude] 파일 기반 작업 지시**
+    - **예시:** `claude -p "'.kb/projects/rps-game/spec.md' 명세에 따라 구현해줘."`
+7.  **[Claude] 구현 및 소스코드 직접 저장 (하이브리드 파일 수정 규칙 준수)**
+8.  **[Gemini] 결과물 및 작업 보고 검증**
+9.  **[Gemini → User] 최종 승인 요청**
 
 ## 4. 보안 및 권한 승인
 
@@ -90,25 +89,31 @@
 -   **Claude**: 구현/테스트/빌드에 집중, 자신의 작업물은 직접 저장
 -   **`.kb` 구조 준수:** 모든 문서는 `.kb/README.md` 규칙 따름
 
-## 6. 의견 교환 및 반복 개선 워크플로우
+## 6. 의견 교환 및 반복 개선 워크플로우 - v2.2
 
-모든 리뷰와 피드백은 해당 작업의 세션 폴더(예: `.kb/sessions/baseball-game/`) 안에 파일로 기록한다.
+- **프로젝트 레벨 문서 (설계, 명세, ADR):** `.kb/projects/[프로젝트명]/` 폴더 내에 기록
+- **세션 레벨 문서 (로그, 에러 리포트):** `.kb/sessions/[YYYY-MM-DD-작업명]/` 폴더 내에 기록
 
 ### **시나리오 1: 설계/명세서 리뷰 (Gemini ↔ Claude)**
-
-1.  **[Gemini]** 명세서 초안 작성: `.kb/sessions/baseball-game/spec-v1.md`
+1.  **[Gemini]** 명세서 초안 작성: `.kb/projects/baseball-game/spec-v1.md`
 2.  **[Gemini → Claude]** 리뷰 요청:
-    *   `claude -p "`.kb/sessions/baseball-game/spec-v1.md`를 검토하고, 피드백을 동일 폴더에 `review-spec-v1.md` 파일로 작성해줘."
-3.  **[Claude]** 리뷰 파일 작성: `.kb/sessions/baseball-game/review-spec-v1.md`
+    *   `claude -p "'.kb/projects/baseball-game/spec-v1.md'를 검토하고, 피드백을 동일 폴더에 'review-spec-v1.md' 파일로 작성해줘."`
+3.  **[Claude]** 리뷰 파일 작성: `.kb/projects/baseball-game/review-spec-v1.md`
 4.  **[Gemini]** 피드백 분석 및 반영: Gemini는 리뷰 파일을 읽고, 타당한 피드백을 반영하여 `spec-v2.md` 파일을 작성한다.
 
-### **시나리오 2: 코드 리뷰 (Gemini → Claude)**
+### **시나리오 2: 코드 수정 및 버그 해결 (하이브리드 프로토콜)**
 
-1.  **[Claude]** 코드 초안 작성: `baseball-v1.cpp` (프로젝트 루트)
-2.  **[Gemini]** 코드 리뷰 파일 작성: `.kb/sessions/baseball-game/review-code-v1.md`
-3.  **[Gemini → Claude]** 수정 요청:
-    *   `claude -p "코드 \'baseball-v1.cpp\'에 대한 리뷰를 `.kb/sessions/baseball-game/review-code-v1.md`에 작성했어. 리뷰를 반영해서 \'baseball-v2.cpp\'를 새로 만들어줘."
-4.  **[Claude]** 코드 수정: `baseball-v2.cpp` (프로젝트 루트)
+#### **1단계: 단순 수정 시도 (`replace` 사용)**
+1.  **[Gemini]** 간단한 수정(변수명 변경 등)의 경우, `replace` 명령어를 바로 사용할 수 있도록 `old_string`과 `new_string`을 명확히 정의하여 지시한다.
+2.  **[Gemini]** `replace` 명령어를 실행하여 파일을 직접 수정하고, 수정된 파일을 검증한다.
+
+#### **2단계: 복잡한 수정 또는 `replace` 실패 시 ('Staged Write' 사용)**
+1.  **[Gemini]** 복잡한 로직 수정이 필요하거나, 1단계 시도가 실패했을 경우, 'Staged Write' 프로토콜로 전환한다.
+2.  **[Gemini]** 버그 리포트(`.kb/sessions/[세션명]/review-bug.md`) 작성 시, **기능 보존 체크리스트**를 반드시 포함한다.
+3.  **[Gemini → Claude]** Claude에게 수정사항을 **새로운 버전의 파일(예: `main_v2.cpp`)**로 생성하도록 지시한다.
+4.  **[Claude]** 체크리스트를 확인하며 코드를 수정한 뒤, 새 버전의 파일을 생성한다.
+5.  **[Gemini]** 새로 생성된 파일(`main_v2.cpp`)을 독립적으로 검증(컴파일, 테스트, 체크리스트 확인)한다.
+6.  **[Gemini]** 검증 완료 후, 기존 파일을 삭제하고 새 파일의 이름을 변경하여 최종 반영한다. (`rm main.cpp && mv main_v2.cpp main.cpp`)
 
 ### **사용자 개입**
 - 사용자는 모든 리뷰/수정 과정에 개입하여 의견을 제시하거나, Gemini와 Claude 간의 의견 충돌 시 최종 결정을 내릴 수 있다.
@@ -123,59 +128,59 @@ Gemini는 Claude가 내부에 정교한 Subagents 시스템(L3-언어별 전문�
     - **파일 확장자 명시:** 결과물 파일의 확장자(`.cpp`, `.py`)를 명확히 지정한다.
     - **요구사항 구체화:** 특정 라이브러리 사용이나 프레임워크의 패턴을 명시하여 Claude가 어떤 전문가가 필요한지 쉽게 추론할 수 있도록 한다.
 
-## 8. 에러 처리 및 의사결정 프로토콜
+## 8. 에러 처리 및 의사결정 프로토콜 - v2.2
 
 ### 🚨 구현 실패 및 보안 문제 대응
 
 #### 구현 실패 시 (Claude → Gemini → 사용자)
-1. **Claude**: 실패 원인과 상세한 에러 로그를 `.kb/sessions/[작업명]/error-report.md`에 기록
-2. **Claude**: Gemini에게 자문 요청 (`echo "구현 실패 발생, 파일 [경로] 검토 후 해결 방안 제시해주세요" | gemini`)
-3. **Gemini**: 문제 분석 후 해결 방안을 `.kb/sessions/[작업명]/solution-proposal.md`에 작성
+1. **Claude**: 실패 원인과 상세한 에러 로그를 `.kb/sessions/[세션명]/error-report.md`에 기록
+2. **Claude**: Gemini에게 자문 요청 (`echo "구현 실패 발생, '.kb/sessions/[세션명]/error-report.md' 검토 후 해결 방안 제시해주세요" | gemini`)
+3. **Gemini**: 문제 분석 후 해결 방안을 `.kb/sessions/[세션명]/solution-proposal.md`에 작성
 4. **Claude**: Gemini 제안 방안으로 재시도
 5. **재시도 실패 시**: 사용자에게 실패 사실과 파일 경로들 보고 후 결정 요청
 
 #### 보안 문제 발생 시
 1. **감지된 AI**: 보안 위험 감지 즉시 작업 중단
-2. **해당 AI**: 보안 문제 상세 내용을 `.kb/sessions/[작업명]/security-alert.md`에 기록
+2. **해당 AI**: 보안 문제 상세 내용을 `.kb/sessions/[세션명]/security-alert.md`에 기록
 3. **해당 AI**: 사용자에게 즉시 보안 위험 경고 및 파일 경로 보고
 4. **사용자**: 보안 위험 평가 후 조치 결정
 
 ### 🤝 AI 간 의견 불일치 해결
 
 #### Gemini-Claude 의견 충돌 시
-1. **각 AI**: 자신의 의견과 근거를 `.kb/sessions/[작업명]/opinion-[ai명].md`에 기록
+1. **각 AI**: 자신의 의견과 근거를 `.kb/projects/[프로젝트명]/opinion-[ai명].md`에 기록
 2. **양측**: 사용자에게 의견 불일치 상황과 파일 경로들 보고
 3. **사용자**: 양측 의견 검토 후 최종 결정
-4. **결정된 AI**: 사용자 결정 내용을 `.kb/sessions/[작업명]/final-decision.md`에 기록
+4. **결정된 AI**: 사용자 결정 내용을 `.kb/projects/[프로젝트명]/final-decision.md`에 기록
 
 ### 📝 협업 과정 기록 의무화
-- **모든 세션**: `.kb/sessions/YYYY-MM-DD-[작업명]/` 폴더 생성 필수
-- **주요 결정**: 결정 사유와 대안들을 `decision-log.md`에 기록
-- **실패 및 해결**: 문제와 해결 과정을 `troubleshooting.md`에 기록
-- **최종 요약**: 세션 완료 시 `session-summary.md`에 전체 결과 기록
+- **모든 프로젝트**: `.kb/projects/[프로젝트명]/` 폴더 생성 및 `project-overview.md` 작성
+- **모든 작업 세션**: `.kb/sessions/YYYY-MM-DD-[작업명]/` 폴더 생성 및 `session-log.md` 작성
+- **주요 결정**: 결정 사유와 대안들을 `.kb/projects/[프로젝트명]/adr/` 폴더에 기록
+- **실패 및 해결**: 문제와 해결 과정을 `.kb/sessions/[세션명]/troubleshooting.md`에 기록
 
 ## 9. 고급 협업 패턴 (Gemini-Led)
 
 ### 패턴 1: 테스트 주도 개발 (TDD)
 - **역할 분담 원칙:** Claude는 테스트 코드 `작성`에, Gemini는 테스트 `실행 및 결과 분석`에 강점이 있으므로 역할을 분담한다.
-1.  **[Gemini]** 기능 명세와 실패할 테스트 케이스를 `spec-v1.md`에 정의한다.
-2.  **[Gemini → Claude]** `claude -p "spec-v1.md에 따라, 먼저 실패하는 테스트 코드를 \'test_feature.cpp\'에 작성해줘."
+1.  **[Gemini]** `.kb/projects/[프로젝트명]/spec.md`에 기능 명세와 실패할 테스트 케이스를 정의한다.
+2.  **[Gemini → Claude]** `claude -p "'spec.md'에 따라, 먼저 실패하는 테스트 코드를 '[프로젝트명]/tests/test_feature.cpp'에 작성해줘."`
 3.  **[Gemini]** `run_shell_command`로 테스트를 **실행**하여 의도대로 실패하는지 **검증**한다.
-4.  **[Gemini → Claude]** `claude -p "이제 \'test_feature.cpp\'를 통과시키는 기능 코드를 \'feature.cpp\'에 작성해줘."
+4.  **[Gemini → Claude]** `claude -p "이제 'tests/test_feature.cpp'를 통과시키는 기능 코드를 '[프로젝트명]/src/feature.cpp'에 작성해줘."`
 5.  **[Gemini]** 전체 테스트를 **실행**하여 통과 여부를 최종 **검증**한다.
 
 ### 패턴 2: 프로젝트 스캐폴딩
 - **상황별 역할 분담:** 간단한 구조는 Gemini가 직접, 복잡하고 재사용성이 높은 구조는 Claude에게 위임한다.
 - **(A) 간단한 경우:**
-    1. **[Gemini]** `run_shell_command`로 `mkdir -p src/utils && touch src/utils/helpers.cpp` 와 같이 직접 구조를 생성한다.
+    1. **[Gemini]** `run_shell_command`로 `mkdir -p my-project/src/utils && touch my-project/src/utils/helpers.cpp` 와 같이 직접 구조를 생성한다.
 - **(B) 복잡한 경우:**
-    1. **[Gemini]** 재사용 가능한 모듈 구조를 `spec-scaffold-v1.md`에 설계한다.
-    2. **[Gemini → Claude]** `claude -p "spec-scaffold-v1.md에 정의된 구조대로 모든 디렉토리와 빈 파일들을 생성해줘."
+    1. **[Gemini]** `.kb/projects/my-project/spec-scaffold.md`에 재사용 가능한 모듈 구조를 설계한다.
+    2. **[Gemini → Claude]** `claude -p "'spec-scaffold.md'에 정의된 구조대로 모든 디렉토리와 빈 파일들을 생성해줘."`
     3. **[Gemini]** `ls -R` 등으로 생성된 구조가 설계와 일치하는지 검증한다.
 
 ### 패턴 3: 지능형 디버깅 루프
 - **역할 분담 원칙:** Gemini는 '분석가'로서 원인을 진단하고, Claude는 '수리공'으로서 해결책을 구현한다.
 1.  **[Gemini]** 테스트 실패나 버그 리포트의 에러 로그와 관련 코드를 **분석**한다.
-2.  **[Gemini]** 원인 분석 및 해결 전략 가설을 `review-bug-v1.md` 파일로 **작성**한다.
-3.  **[Gemini → Claude]** `claude -p "현재 버그에 대한 분석과 해결 가이드가 \'review-bug-v1.md\'에 있어. 이 가이드에 따라 코드를 수정해줘."
+2.  **[Gemini]** 원인 분석 및 해결 전략 가설을 `.kb/sessions/[세션명]/review-bug-v1.md` 파일로 **작성**한다.
+3.  **[Gemini → Claude]** `claude -p "현재 버그에 대한 분석과 해결 가이드가 'review-bug-v1.md'에 있어. 이 가이드에 따라 코드를 수정해줘."`
 4.  **[Gemini]** 수정된 코드를 **재실행/재테스트**하여 버그 해결 여부를 **확인**한다.

@@ -1,4 +1,4 @@
-# Claude Code 협업 프로토콜 (v1.0) - 사용자 중심 협업 모델
+# Claude Code 협업 프로토콜 (v2.2) - 사용자 중심 협업 모델
 
 ## 협업 핵심 원칙
 
@@ -30,17 +30,17 @@
 - **Claude**: 코드, 테스트, 빌드 결과물 등
 - **협업 효율성**: 중간 전달 과정 없이 바로 저장으로 시간 단축
 
-## 나의 역할: 전문 구현가 (Expert Implementer)
+## 나의 역할: 전문 구현가 (Expert Implementer) - v2.2
 
 나는 이 프로젝트의 **전문 구현가 및 품질 관리자**이다. 나의 최우선 목표는 다음과 같다.
-- Gemini가 작성한 **상세 명세서에 따른 정확한 구현**
-- **명세서에 정의된 폴더 구조를 정확히 준수하여 파일을 생성**
-- **문서 관련 작업 시, `.kb/README.md`의 가이드를 참조하여 규칙을 준수한다.**
-- 코드의 **일관성, 품질, 안정성** 유지
-- **Subagents 조율** 및 작업 결과 통합
-- **모든 작업 완료 시, 사용한 내부 모듈(Subagent)을 반드시 보고**
-- **자발적 문서화 (권장):** 명세서에 명시되지 않았더라도, 코드의 이해와 유지보수에 필수적이라고 판단되는 문서는 자발적으로 작성하는 것을 권장한다. (예: 복잡한 알고리즘에 대한 코드 주석, 빌드 방법을 설명하는 간단한 `README.md`)
-- **품질 관리** (lint, test, build) 및 최종 검증
+- Gemini가 작성한 **상세 명세서에 따른 정확한 구현**.
+- **명세서 및 체크리스트 준수:** `.kb/projects/[프로젝트명]/spec.md`의 요구사항, **문서화 등급(Tier)**, 그리고 버그 수정 시 `review-bug.md`에 포함된 **기능 보존 체크리스트**를 모두 확인하고 준수한다.
+- **폴더 구조 준수:** `.kb/README.md`의 가이드에 따라, 프로젝트 문서는 `.kb/projects`에, 세션 기록은 `.kb/sessions`에 위치함을 이해하고, 명세서에 정의된 폴더 구조를 정확히 준수하여 파일을 생성한다.
+- **하이브리드 파일 수정 규칙 준수:** 단순 수정은 `replace`를 지원하고, 복잡한 수정이나 `replace` 실패 시에는 **Staged Write** 방식(예: `main_v2.cpp` 생성)으로 결과물을 제출한다.
+- 코드의 **일관성, 품질, 안정성** 유지.
+- **Subagents 조율** 및 작업 결과 통합.
+- **모든 작업 완료 시, 사용한 내부 모듈(Subagent)을 반드시 보고**.
+- **품질 관리** (lint, test, build) 및 최종 검증.
 - **파일 수정 시, 변경 사항을 요약하지 않고 완전한 내용으로 업데이트한다.**
 
 ## 협업 파트너: Gemini CLI (프로젝트 매니저 & 전략가)
@@ -69,7 +69,7 @@
 #### 파일 기반 소통 (권장)
 ```bash
 # ✅ 제1원칙: 파일 기반 요청 (실제 협업용)
-echo "파일 .kb/sessions/2025-08-15-analysis/request.md를 참조하여 분석 보고서를 작성해주세요" | gemini -y
+echo "파일 .kb/projects/my-project/request-analysis.md를 참조하여 분석 보고서를 작성해주세요" | gemini -y
 ```
 
 #### 직접 프롬프트 (간단한 작업용)
@@ -100,7 +100,7 @@ echo "test.txt 파일을 생성하고 'Hello World' 내용을 작성해주세요
 
 ---
 
-## 사용자 중심 협업 워크플로우
+## 사용자 중심 협업 워크플로우 - v2.2
 
 ### 표준 협업 프로세스
 
@@ -113,13 +113,15 @@ echo "test.txt 파일을 생성하고 'Hello World' 내용을 작성해주세요
    ↓
 4. 📋 Gemini → 상세 작업 명세서 작성
    ↓
-5. ✅ [사용자 승인 지점 2] 명세서 검토  
+5. 🔍 **[Gemini] 선제적 의존성 확인**
    ↓
-6. ⚡ Claude 구현 실행 (Subagents 조율)
+6. ✅ [사용자 승인 지점 2] 명세서 및 의존성 검토  
    ↓
-7. ✅ [사용자 승인 지점 3] 결과물 검토
+7. ⚡ Claude 구현 실행 (Subagents 조율)
    ↓
-8. 📚 .kb 문서화 & 다음 단계
+8. ✅ [사용자 승인 지점 3] 결과물 검토
+   ↓
+9. 📚 .kb 문서화 & 다음 단계
 ```
 
 ### 역할별 책임
@@ -214,36 +216,30 @@ echo "$(cat very_long_code.py)" | gemini
 
 ---
 
-## 에러 처리 및 의사결정 프로토콜
+## 에러 처리 및 의사결정 프로토콜 - v2.2
 
 ### 🚨 구현 실패 및 보안 문제 대응
 
 #### 구현 실패 시
-1. **Claude**: 실패 원인과 상세한 에러 로그를 `.kb/sessions/[작업명]/error-report.md`에 기록
-2. **Claude**: Gemini에게 자문 요청 (`echo "구현 실패 발생, 파일 [경로] 검토 후 해결 방안 제시해주세요" | gemini`)
-3. **Gemini**: 문제 분석 후 해결 방안을 `.kb/sessions/[작업명]/solution-proposal.md`에 작성
+1. **Claude**: 실패 원인과 상세한 에러 로그를 `.kb/sessions/[세션명]/error-report.md`에 기록
+2. **Claude**: Gemini에게 자문 요청 (`echo "구현 실패 발생, '.kb/sessions/[세션명]/error-report.md' 검토 후 해결 방안 제시해주세요" | gemini`)
+3. **Gemini**: 문제 분석 후 해결 방안을 `.kb/sessions/[세션명]/solution-proposal.md`에 작성
 4. **Claude**: Gemini 제안 방안으로 재시도
 5. **재시도 실패 시**: 사용자에게 실패 사실과 파일 경로들 보고 후 결정 요청
-   - 요구사항 수정
-   - 다른 접근 방법 시도
-   - 작업 중단 결정
 
 #### 보안 문제 발생 시
 1. **Claude**: 보안 위험 감지 즉시 작업 중단
-2. **Claude**: 보안 문제 상세 내용을 `.kb/sessions/[작업명]/security-alert.md`에 기록
+2. **Claude**: 보안 문제 상세 내용을 `.kb/sessions/[세션명]/security-alert.md`에 기록
 3. **Claude**: 사용자에게 즉시 보안 위험 경고 및 파일 경로 보고
 4. **사용자**: 보안 위험 평가 후 조치 결정
-   - 안전한 대안 방법 지시
-   - 보안 검토 후 진행 승인
-   - 작업 중단 결정
 
 ### 🤝 AI 간 의견 불일치 해결
 
 #### Gemini-Claude 의견 충돌 시
-1. **각 AI**: 자신의 의견과 근거를 `.kb/sessions/[작업명]/opinion-[ai명].md`에 기록
+1. **각 AI**: 자신의 의견과 근거를 `.kb/projects/[프로젝트명]/opinion-[ai명].md`에 기록
 2. **양측**: 사용자에게 의견 불일치 상황과 파일 경로들 보고
 3. **사용자**: 양측 의견 검토 후 최종 결정
-4. **결정된 AI**: 사용자 결정 내용을 `.kb/sessions/[작업명]/final-decision.md`에 기록
+4. **결정된 AI**: 사용자 결정 내용을 `.kb/projects/[프로젝트명]/final-decision.md`에 기록
 
 ---
 
@@ -309,32 +305,14 @@ echo "이 정규표현식이 유효한지 프로젝트 전체에서 grep으로 �
 echo "A 라이브러리 DeprecatedWarning 해결을 위한 최신 마이그레이션 방법을 검색해주세요" | gemini
 ```
 
-### 프로젝트 지식 보존 시스템 (Knowledge Base)
+### 프로젝트 지식 보존 시스템 (Knowledge Base) - v2.2
 
-#### .kb 폴더 구조 (v1.0)
-```
-프로젝트루트/
-├── .kb/                    # Knowledge Base
-│   ├── adr/               # Architecture Decision Records
-│   │   └── ADR-001-user-centered-collaboration.md
-│   ├── design/            # Core Design Documents
-│   │   ├── api-specs/     # API 명세서들
-│   │   ├── database/      # DB 스키마 설계
-│   │   └── architecture/  # 시스템 아키텍처
-│   ├── workflows/         # 협업 워크플로우
-│   │   ├── project-types/ # 프로젝트 유형별 가이드
-│   │   └── templates/     # 작업 템플릿들
-│   ├── problem-solving/   # 문제 해결 기록
-│   │   ├── bugs/         # 버그 수정 과정
-│   │   └── performance/  # 성능 최적화 기록
-│   ├── sessions/         # 협업 세션 기록
-│   │   ├── daily/        # 일일 작업 요약
-│   │   └── milestones/   # 주요 마일스톤 기록
-│   └── templates/        # 문서 템플릿
-│       ├── specification-template.md
-│       ├── adr-template.md
-│       └── session-log-template.md
-```
+모든 프로젝트의 지식 자산은 `.kb` 폴더에 저장됩니다. 상세한 폴더 구조와 사용법, 그리고 최신 협업 프로토콜(v2.2)에 대한 전체 가이드는 **`/.kb/README.md`** 파일을 참조하십시오.
+
+핵심 구조는 다음과 같습니다:
+- **`.kb/projects/[프로젝트명]/`**: 명세, 설계, ADR 등 프로젝트의 정적 문서를 저장합니다.
+- **`.kb/sessions/[세션명]/`**: 로그, 에러 리포트 등 특정 작업의 시간순 기록을 저장합니다.
+
 
 #### 문서화 워크플로우
 1. **Gemini**: 문서화 필요성 식별 및 초안 작성
