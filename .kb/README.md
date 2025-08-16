@@ -1,4 +1,4 @@
-# Knowledge Base (KB) 사용 가이드 v2.2
+# Knowledge Base (KB) 사용 가이드 v2.3
 
 ## 1. 핵심 철학: "만드는 사람"을 위한 지식 창고
 
@@ -24,6 +24,7 @@
 -   `design/`: 클래스 다이어그램, 시스템 아키텍처 등 시각적 설계 자료.
 -   `adr/`: 중요한 아키텍처 결정 기록 (Architecture Decision Records).
 -   `research/`: 기술 연구, 벤치마킹 결과.
+-   `sessions/`: 해당 프로젝트와 관련된 모든 세션 기록들.
 
 ### 📂 `sessions/[YYYY-MM-DD-작업명]/`
 특정 날짜에 수행된 작업의 로그, 에러 리포트, 해결 과정 등을 기록합니다.
@@ -64,13 +65,21 @@
 1.  `mkdir -p .kb/projects/my-new-project`
 2.  `cp .kb/templates/project-overview-template.md .kb/projects/my-new-project/project-overview.md`
 3.  `project-overview.md`를 작성하여 프로젝트의 목표와 문서화 수준을 정의합니다.
-4.  정의된 수준에 맞춰 `spec.md` 등 필요한 문서를 생성합니다.
+4.  **`cp .kb/templates/specification-template.md .kb/projects/my-new-project/spec.md` 와 같이 템플릿을 사용하여 명세서를 작성합니다.**
 
 ### 일일 개발 세션 시작 시
 1.  `mkdir -p .kb/sessions/2025-08-16-feature-login`
 2.  해당 폴더에 작업 로그, 에러 리포트 등을 기록합니다.
 
-## 5. 협업 가이드
+## 5. 온보딩 및 템플릿 사용 규칙 (v2.3)
+
+### 온보딩 절차
+- **규칙:** 프로젝트에 새로 참여하거나 프로토콜의 주요 버전이 업데이트될 경우, 모든 AI 에이전트는 `GEMINI.md`, `CLAUDE.md`, `.kb/README.md` 뿐만 아니라, `.kb/projects/protocol-meta/` 폴더의 핵심 철학 및 설계 문서를 읽어 협업의 기본 원칙을 숙지해야 합니다.
+
+### 템플릿 사용
+- **규칙:** 모든 명세서와 체크리스트 작성 시, `.kb/templates`에 있는 최신 템플릿을 반드시 사용해야 합니다.
+
+## 6. 협업 가이드
 
 **파일 수정 원칙:** 이 Knowledge Base 내의 모든 문서를 수정할 때는, 절대 내용을 요약하거나 생략해서는 안 됩니다. 항상 파일의 전체 내용을 읽고, 수정한 뒤, 완전한 내용으로 다시 저장해야 합니다.
 

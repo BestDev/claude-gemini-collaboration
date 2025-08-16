@@ -1,5 +1,10 @@
 # Python cache
 __pycache__/
 
-# Compiled binaries
-bin/
+# Compiled object files
+**/*.o
+
+# Build output directories
+**/bin/
+**/obj/
+**/build/

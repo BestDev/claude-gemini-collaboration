@@ -46,6 +46,7 @@ Gemini 명세서 작성 → [사용자 승인2] → Claude 구현 → [사용자
 ## 호환성
 기존 Claude Code + Gemini CLI 환경과 완전 호환됩니다.
 
-## 참고자료
-- `/CLAUDE.md` v2.0 - 협업 프로토콜 상세
-- `.kb/workflows/` - 구체적 워크플로우 가이드
+## 참고자료 (v2.2)
+- `GEMINI.md` - Gemini 주도 협업 프로토콜 v2.2
+- `CLAUDE.md` - Claude Code 협업 프로토콜 v2.2
+- `.kb/README.md` - Knowledge Base 구조 및 사용 가이드 v2.2
