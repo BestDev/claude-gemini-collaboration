@@ -162,7 +162,11 @@ echo "[구체적 요청 내용]. 추가 질문 없이 바로 실행해주세요.
 
 ---
 
-# 중요 지침 (Important Instructions)
+## 📚 참고 문서
+- **COLLABORATION-RULES.md**: AI 간 공통 협업 규칙
+- **GEMINI.md**: Gemini 주도 세션 규칙
+
+## 중요 지침 (Important Instructions)
 - 사용자가 요청한 것만 정확히 수행하세요
 - 목표 달성에 절대 필요한 경우가 아니면 파일을 생성하지 마세요
 - 새 파일보다는 기존 파일 편집을 우선하세요
