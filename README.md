@@ -96,25 +96,34 @@ Claude와 직접 대화하며 즉시 문제를 해결하고 싶을 때 사용하
 ```mermaid
 graph TD
     A[claude-gemini-collaboration/] --> B[CLAUDE.md]
-    A --> C[GEMINI.md] 
+    A --> C[GEMINI.md]
     A --> D[README.md]
-    A --> E[.kb/]
-    A --> F[tetris/]
-    A --> G[word_counter/]
+    A --> E[COLLABORATION-RULES.md]
+    A --> F[.kb/]
+    A --> G[tetris/]
+    A --> H[tetris_v2/]
+    A --> I[word_counter/]
     
-    E --> H[projects/]
-    E --> I[sessions/]
-    E --> J[templates/]
+    F --> J[projects/]
+    F --> K[sessions/]
     
-    H --> K[protocol-meta/]
-    H --> L[tetris-game/]
+    J --> L[tetris_v2/]
+    K --> M[2025-08-18-tetris-development/]
+    K --> N[2025-08-18-word-counter-development/]
     
-    F --> M[src/]
-    F --> N[include/]
-    F --> O[bin/]
-    F --> P[Makefile]
+    G --> O[src/]
+    G --> P[include/]
+    G --> Q[bin/]
+    G --> R[Makefile]
     
-    G --> Q[src/main.cpp]
+    H --> S[src/]
+    H --> T[include/TetrisV2/]
+    H --> U[doc/]
+    H --> V[assets/]
+    H --> W[CMakeLists.txt]
+    
+    I --> X[src/main.cpp]
+    I --> Y[README.md]
 ```
 
 프로젝트의 성격에 따라 두 가지 주요 협업 모델을 선택할 수 있습니다.
