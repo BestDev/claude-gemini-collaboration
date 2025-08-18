@@ -356,12 +356,9 @@ Applying the hierarchical agent model proposed by Gemini to maximize language-sp
 #### L3: Language Experts (Specialized Tools)
 **Role**: Language-specific expert work execution according to Claude's instructions (not independent operation)
 
-### 🎯 Language-Specific Expert Agent System (9 Languages)
+### 🎯 Expert Agent System (13 Agents)
 
-#### 1. FormatDispatcher (Intelligent Router)
-**Role**: Project analysis and appropriate language expert selection
-
-#### 2. Language-Specific Expert Developers (Expert Developers)
+#### 1. Language-Specific Expert Developers (Expert Developers)
 - **PythonExpert**: Python development, PEP8, type hints, performance optimization
 - **CppExpert**: C++ development, memory management, STL, performance optimization  
 - **CExpert**: C development, system programming, memory safety
@@ -370,20 +367,15 @@ Applying the hierarchical agent model proposed by Gemini to maximize language-sp
 - **GoExpert**: Go development, concurrency, microservice architecture
 - **DotNetExpert**: .NET development, modern C#, enterprise patterns
 - **NodeJSExpert**: Node.js backend, asynchronous patterns, API design
-- **TypeScriptExpert**: TypeScript development, advanced type system
 
-#### 3. Database Experts (Database Experts)
+#### 2. Database Experts (Database Experts)
 - **MySQLExpert**: MySQL RDBMS, query optimization, indexing strategy
 - **RedisExpert**: Redis in-memory cache, high-performance data processing
-- **PostgreSQLExpert**: PostgreSQL advanced features, enterprise DB
-- **MongoDBExpert**: MongoDB NoSQL, document modeling
 - **SQLiteExpert**: SQLite embedded DB, game/mobile optimization
 
-#### 4. Data Source Experts (Data Source Experts)
-- **SpreadsheetExpert**: Excel/Google Sheets management, planning-development pipeline, real-time synchronization
-
-#### 5. DocGenerator (Multi-language Documentation)
-**Role**: Integrated documentation for all languages, DB, data sources, .kb knowledge management
+#### 3. Project Management Experts (Project Management Experts)
+- **ProjectAnalyzer**: Project structure analysis, codebase exploration, improvement identification
+- **ProjectDocumentationSpecialist**: Project documentation, architecture diagrams, deployment guide writing
 
 ### 🔄 Expanded Role Scope (Formatter → Expert Developer)
 
@@ -402,12 +394,11 @@ Each language expert performs the following roles:
 1. User request → Gemini analysis and design
 2. Gemini → Claude detailed specification delivery  
 3. Claude implementation planning
-4. FormatDispatcher language detection
-5. Claude invokes necessary language experts
-6. Language-specific expert work execution (parallel/sequential)
-7. Claude integrates and verifies all results
-8. DocGenerator integrated documentation
-9. User final review and approval
+4. Claude selects and invokes necessary expert agents
+5. Expert agent work execution (parallel/sequential)
+6. Claude integrates and verifies all results
+7. ProjectDocumentationSpecialist integrated documentation
+8. User final review and approval
 ```
 
 ### Subagents Coordination Principles
@@ -421,8 +412,6 @@ Each language expert performs the following roles:
 - **Overall utilization guide**: `.kb/design/claude-code-subagents.md`
 - **Multi-language support**: `.kb/design/multi-language-support.md`
 - **Subagent definitions**: `.claude/agents/*.md`
-  - `doc-generator.md` - Multi-language documentation expert
-  - `format-dispatcher.md` - Formatting router and coordinator
   - **Language-specific expert developers**:
     - `python-expert.md` - Python development expert
     - `cpp-expert.md` - C++ development expert  
@@ -432,13 +421,13 @@ Each language expert performs the following roles:
     - `go-expert.md` - Go language expert
     - `dotnet-expert.md` - .NET C# expert
     - `nodejs-expert.md` - Node.js backend expert
-    - `typescript-expert.md` - TypeScript expert
   - **Database experts**:
     - `mysql-expert.md` - MySQL database expert
     - `redis-expert.md` - Redis cache and in-memory DB expert
-    - `postgresql-expert.md` - PostgreSQL advanced RDBMS expert
-    - `mongodb-expert.md` - MongoDB NoSQL expert
     - `sqlite-expert.md` - SQLite embedded DB expert
+  - **Project management experts**:
+    - `project-analyzer.md` - Project structure analysis and improvement identification expert
+    - `project-documentation-specialist.md` - Project documentation and architecture diagram expert
 
 ---
 

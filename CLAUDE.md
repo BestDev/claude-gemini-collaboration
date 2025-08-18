@@ -356,12 +356,9 @@ Gemini가 제안한 계층적 에이전트 모델을 적용하여 언어별 전�
 #### L3: Language Experts (Specialized Tools)
 **역할**: Claude의 지시에 따른 언어별 전문 작업 수행 (독립 동작 아님)
 
-### 🎯 언어별 전문 에이전트 시스템 (9개 언어)
+### 🎯 전문 에이전트 시스템 (13개 에이전트)
 
-#### 1. FormatDispatcher (지능적 라우터)
-**역할**: 프로젝트 분석 및 적절한 언어 전문가 선택
-
-#### 2. 언어별 전문 개발자 (Expert Developers)
+#### 1. 언어별 전문 개발자 (Expert Developers)
 - **PythonExpert**: Python 개발, PEP8, 타입 힌트, 성능 최적화
 - **CppExpert**: C++ 개발, 메모리 관리, STL, 성능 최적화  
 - **CExpert**: C 개발, 시스템 프로그래밍, 메모리 안전성
@@ -370,20 +367,15 @@ Gemini가 제안한 계층적 에이전트 모델을 적용하여 언어별 전�
 - **GoExpert**: Go 개발, 동시성, 마이크로서비스 아키텍처
 - **DotNetExpert**: .NET 개발, 현대적 C#, 엔터프라이즈 패턴
 - **NodeJSExpert**: Node.js 백엔드, 비동기 패턴, API 설계
-- **TypeScriptExpert**: TypeScript 개발, 고급 타입 시스템
 
-#### 3. 데이터베이스 전문가 (Database Experts)
+#### 2. 데이터베이스 전문가 (Database Experts)
 - **MySQLExpert**: MySQL RDBMS, 쿼리 최적화, 인덱싱 전략
 - **RedisExpert**: Redis 인메모리 캐시, 고성능 데이터 처리
-- **PostgreSQLExpert**: PostgreSQL 고급 기능, 엔터프라이즈 DB
-- **MongoDBExpert**: MongoDB NoSQL, 도큐먼트 모델링
 - **SQLiteExpert**: SQLite 임베디드 DB, 게임/모바일 최적화
 
-#### 4. 데이터 소스 전문가 (Data Source Experts)
-- **SpreadsheetExpert**: 엑셀/구글시트 관리, 기획-개발 파이프라인, 실시간 동기화
-
-#### 5. DocGenerator (다중 언어 문서화)
-**역할**: 모든 언어, DB, 데이터 소스 통합 문서화, .kb 지식 관리
+#### 3. 프로젝트 관리 전문가 (Project Management Experts)
+- **ProjectAnalyzer**: 프로젝트 구조 분석, 코드베이스 탐색, 개선점 도출
+- **ProjectDocumentationSpecialist**: 프로젝트 문서화, 아키텍처 다이어그램, 배포 가이드 작성
 
 ### 🔄 확장된 역할 범위 (포매터 → 전문 개발자)
 
@@ -402,12 +394,11 @@ Gemini가 제안한 계층적 에이전트 모델을 적용하여 언어별 전�
 1. 사용자 요청 → Gemini 분석 및 설계
 2. Gemini → Claude 상세 명세 전달  
 3. Claude 구현 계획 수립
-4. FormatDispatcher 언어 감지
-5. Claude가 필요한 언어 전문가들 호출
-6. 언어별 전문 작업 수행 (병렬/순차)
-7. Claude가 모든 결과 통합 및 검증
-8. DocGenerator 통합 문서화
-9. 사용자 최종 검토 및 승인
+4. Claude가 필요한 전문 에이전트들 선택 및 호출
+5. 전문 에이전트별 작업 수행 (병렬/순차)
+6. Claude가 모든 결과 통합 및 검증
+7. ProjectDocumentationSpecialist 통합 문서화
+8. 사용자 최종 검토 및 승인
 ```
 
 ### Subagents 조율 원칙
@@ -421,8 +412,6 @@ Gemini가 제안한 계층적 에이전트 모델을 적용하여 언어별 전�
 - **전체 활용 가이드**: `.kb/design/claude-code-subagents.md`
 - **다중 언어 지원**: `.kb/design/multi-language-support.md`
 - **Subagent 정의**: `.claude/agents/*.md`
-  - `doc-generator.md` - 다중 언어 문서화 전문가
-  - `format-dispatcher.md` - 포맷팅 라우터 및 조율자
   - **언어별 전문 개발자들**:
     - `python-expert.md` - Python 개발 전문가
     - `cpp-expert.md` - C++ 개발 전문가  
@@ -432,13 +421,13 @@ Gemini가 제안한 계층적 에이전트 모델을 적용하여 언어별 전�
     - `go-expert.md` - Go 언어 전문가
     - `dotnet-expert.md` - .NET C# 전문가
     - `nodejs-expert.md` - Node.js 백엔드 전문가
-    - `typescript-expert.md` - TypeScript 전문가
   - **데이터베이스 전문가들**:
     - `mysql-expert.md` - MySQL 데이터베이스 전문가
     - `redis-expert.md` - Redis 캐시 및 인메모리 DB 전문가
-    - `postgresql-expert.md` - PostgreSQL 고급 RDBMS 전문가
-    - `mongodb-expert.md` - MongoDB NoSQL 전문가
     - `sqlite-expert.md` - SQLite 임베디드 DB 전문가
+  - **프로젝트 관리 전문가들**:
+    - `project-analyzer.md` - 프로젝트 구조 분석 및 개선점 도출 전문가
+    - `project-documentation-specialist.md` - 프로젝트 문서화 및 아키텍처 다이어그램 전문가
 
 ---
 

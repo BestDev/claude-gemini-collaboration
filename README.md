@@ -158,7 +158,7 @@ flowchart TD
 
 ### 🤖 Subagents 전문가 시스템 아키텍처
 
-Claude Code는 14개 이상의 내부 전문가 시스템을 운영하여 고성능 협업을 수행합니다.
+Claude Code는 13개의 내부 전문가 시스템을 운영하여 고성능 협업을 수행합니다.
 
 ```mermaid
 graph TB
@@ -180,20 +180,17 @@ graph TB
             GO[GoExpert]
             DOT[DotNetExpert]
             NODE[NodeJSExpert]
-            TS[TypeScriptExpert]
         end
         
         subgraph DB ["데이터베이스"]
             MY[MySQLExpert]
             RD[RedisExpert]
-            PG[PostgreSQLExpert]
-            MG[MongoDBExpert]
             SQ[SQLiteExpert]
         end
         
-        subgraph Utils ["유틸리티"]
-            DOC[DocGenerator]
-            SP[SpreadsheetExpert]
+        subgraph Project ["프로젝트 관리"]
+            PA[ProjectAnalyzer]
+            PDS[ProjectDocumentationSpecialist]
             GP[general-purpose]
         end
     end
@@ -201,7 +198,7 @@ graph TB
     GM --> CL
     CL --> Lang
     CL --> DB
-    CL --> Utils
+    CL --> Project
 ```
 
 **주요 특징:**
@@ -227,7 +224,7 @@ graph TB
 | 역할 | 🧠 **Gemini CLI** (PM & Architect) | ⚡ **Claude Code** (Expert Implementer) |
 | :--- | :--- | :--- |
 | **핵심 임무** | **"무엇을, 왜"** 결정 | **"어떻게"** 구현 |
-| **주요 책임** | <ul><li>요구사항 분석 및 구체화</li><li>아키텍처 설계 및 기술 결정</li><li>작업 계획 및 상세 명세서 작성</li><li>최종 결과물 통합 및 검증</li></ul> | <ul><li>명세서 기반의 정확한 코드 구현</li><li>**14개 이상의 내부 전문가(Subagents) 팀 조율**</li><li>**코드 품질 자동 검증 (Lint, Build, Test)**</li><li>구현 실패 시 대안 제시 및 보고</li></ul> |
+| **주요 책임** | <ul><li>요구사항 분석 및 구체화</li><li>아키텍처 설계 및 기술 결정</li><li>작업 계획 및 상세 명세서 작성</li><li>최종 결과물 통합 및 검증</li></ul> | <ul><li>명세서 기반의 정확한 코드 구현</li><li>**13개의 내부 전문가(Subagents) 팀 조율**</li><li>**코드 품질 자동 검증 (Lint, Build, Test)**</li><li>구현 실패 시 대안 제시 및 보고</li></ul> |
 
 ## ⚙️ 더 깊이 알아보기: 우리만의 약속
 

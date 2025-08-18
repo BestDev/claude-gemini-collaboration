@@ -158,7 +158,7 @@ flowchart TD
 
 ### 🤖 Subagents Expert System Architecture
 
-Claude Code operates 14+ internal expert systems to perform high-performance collaboration.
+Claude Code operates 13 internal expert systems to perform high-performance collaboration.
 
 ```mermaid
 graph TB
@@ -180,20 +180,17 @@ graph TB
             GO[GoExpert]
             DOT[DotNetExpert]
             NODE[NodeJSExpert]
-            TS[TypeScriptExpert]
         end
         
         subgraph DB ["Database"]
             MY[MySQLExpert]
             RD[RedisExpert]
-            PG[PostgreSQLExpert]
-            MG[MongoDBExpert]
             SQ[SQLiteExpert]
         end
         
-        subgraph Utils ["Utilities"]
-            DOC[DocGenerator]
-            SP[SpreadsheetExpert]
+        subgraph Project ["Project Management"]
+            PA[ProjectAnalyzer]
+            PDS[ProjectDocumentationSpecialist]
             GP[general-purpose]
         end
     end
@@ -201,7 +198,7 @@ graph TB
     GM --> CL
     CL --> Lang
     CL --> DB
-    CL --> Utils
+    CL --> Project
 ```
 
 **Key Features:**
@@ -227,7 +224,7 @@ graph TB
 | Role | 🧠 **Gemini CLI** (PM & Architect) | ⚡ **Claude Code** (Expert Implementer) |
 | :--- | :--- | :--- |
 | **Core Mission** | **"What and Why"** decisions | **"How"** implementation |
-| **Main Responsibilities** | <ul><li>Requirements analysis and refinement</li><li>Architecture design and technical decisions</li><li>Work planning and detailed specification writing</li><li>Final deliverable integration and verification</li></ul> | <ul><li>Accurate code implementation based on specifications</li><li>**Coordination of 14+ internal expert (Subagents) teams**</li><li>**Automated code quality verification (Lint, Build, Test)**</li><li>Alternative proposals and reporting in case of implementation failure</li></ul> |
+| **Main Responsibilities** | <ul><li>Requirements analysis and refinement</li><li>Architecture design and technical decisions</li><li>Work planning and detailed specification writing</li><li>Final deliverable integration and verification</li></ul> | <ul><li>Accurate code implementation based on specifications</li><li>**Coordination of 13 internal expert (Subagents) teams**</li><li>**Automated code quality verification (Lint, Build, Test)**</li><li>Alternative proposals and reporting in case of implementation failure</li></ul> |
 
 ## ⚙️ Dive Deeper: Our Unique Commitments
 
