@@ -1,4 +1,4 @@
-# Gemini-Claude Collaboration Protocol (v2.2) - Gemini-Led Model
+# Gemini-Claude Collaboration Protocol - Gemini-Led Model
 
 ## 1. Core Philosophy
 
@@ -28,7 +28,7 @@ This document defines **AI-to-AI collaboration workflows**. Roles vary depending
 - **`.kb` knowledge base utilization:** All important deliverables are systematically recorded in the `.kb` folder
 - **User final approval:** User review and approval required for all major stage deliverables
 
-## 2. Roles and Responsibilities (R&R) - v2.2
+## 2. Roles and Responsibilities (R&R)
 
 ### 🧠 **Gemini CLI (Project Manager & Architect)**
 - **Role:** Analyzes user requirements, designs overall architecture, decomposes work, and provides clear instructions to Claude. Coordinates all project processes and takes responsibility for final deliverable quality.
@@ -61,7 +61,7 @@ This document defines **AI-to-AI collaboration workflows**. Roles vary depending
     - Unit test writing and execution (when required)
     - Code quality management (formatting, linting)
 
-## 3. Standard Collaboration Workflow - v2.2
+## 3. Standard Collaboration Workflow
 
 **All project-related documents are managed under `.kb/projects/[project-name]/`, and specific work records are managed under `.kb/sessions/[session-name]/`.**
 
@@ -97,7 +97,7 @@ This document defines **AI-to-AI collaboration workflows**. Roles vary depending
 -   **Claude**: Focus on implementation/testing/building, directly save own work products
 -   **`.kb` structure compliance:** All documents follow `.kb/README.md` rules
 
-## 6. Opinion Exchange and Iterative Improvement Workflow - v2.2
+## 6. Opinion Exchange and Iterative Improvement Workflow
 
 - **Project-level documents (design, specifications, ADR):** Recorded in `.kb/projects/[project-name]/` folder
 - **Session-level documents (logs, error reports):** Recorded in `.kb/sessions/[YYYY-MM-DD-work-name]/` folder
@@ -136,7 +136,7 @@ Gemini recognizes that Claude has a sophisticated internal Subagents system (L3-
     - **File extension specification:** Clearly specify result file extensions (`.cpp`, `.py`).
     - **Requirement specification:** Specify specific library usage or framework patterns so Claude can easily infer which experts are needed.
 
-## 8. Error Handling and Decision-Making Protocol - v2.2
+## 8. Error Handling and Decision-Making Protocol
 
 ### 🚨 Implementation Failure and Security Issue Response
 
@@ -193,6 +193,6 @@ Gemini recognizes that Claude has a sophisticated internal Subagents system (L3-
 3.  **[Gemini → Claude]** `claude -p "Analysis and solution guide for current bug is in 'review-bug-v1.md'. Modify code according to this guide."`
 4.  **[Gemini]** **Re-execute/re-test** modified code to **confirm** bug resolution.
 
-## 10. Onboarding Procedure (v2.3)
+## 10. Onboarding Procedure
 
 - **Rule:** When newly joining a project or when major protocol versions are updated, all AI agents must read `GEMINI.md`, `CLAUDE.md`, `.kb/README.md` as well as core philosophy and design documents in `.kb/projects/protocol-meta/` folder to understand basic collaboration principles.

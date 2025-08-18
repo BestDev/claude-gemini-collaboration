@@ -1,6 +1,6 @@
 # 🤖 Gemini-Claude AI Collaboration Protocol
 
-[![Protocol Version](https://img.shields.io/badge/Protocol-v2.2-blue.svg)](GEMINI.md)
+[![Protocol Version](https://img.shields.io/badge/Protocol-v1.0-blue.svg)](GEMINI.md)
 [![Documentation Status](https://img.shields.io/badge/Status-Active-green.svg)](./.kb/README.md)
 
 **Two AIs working as one team for your projects.**
@@ -191,7 +191,6 @@ graph TB
         subgraph Project ["Project Management"]
             PA[ProjectAnalyzer]
             PDS[ProjectDocumentationSpecialist]
-            GP[general-purpose]
         end
     end
     

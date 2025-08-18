@@ -1,8 +1,5 @@
 # 🤖 Gemini-Claude AI 협업 프로토콜
 
-[![프로토콜 버전](https://img.shields.io/badge/Protocol-v2.2-blue.svg)](GEMINI.md)
-[![문서 상태](https://img.shields.io/badge/Status-Active-green.svg)](./.kb/README.md)
-
 **두 AI가 하나의 팀처럼, 당신의 프로젝트를 위해 협업합니다.**
 
 이 저장소는 **Gemini CLI** (전략가)와 **Claude Code** (전문 구현가)가 함께 일하며 소프트웨어를 개발하는 방법을 정의하는 **오픈소스 협업 프로토콜**입니다. 복잡한 아이디어를 구체적인 코드로, 버그 리포트를 안정적인 릴리즈로 만들어가는 과정을 직접 확인하고 당신의 프로젝트에 바로 적용해보세요.
@@ -191,7 +188,6 @@ graph TB
         subgraph Project ["프로젝트 관리"]
             PA[ProjectAnalyzer]
             PDS[ProjectDocumentationSpecialist]
-            GP[general-purpose]
         end
     end
     
