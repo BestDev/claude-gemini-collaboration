@@ -261,7 +261,7 @@ tetris_v2/
 ## 🛡️ Security & Permission Protocol (보안 및 권한 승인 프로토콜)
 
 ### File System Access Permissions (파일 시스템 접근 권한)
-- **규칙**: AI 에이전트가 파일 시스템 접근, 네트워크 요청 등 민감한 작업을 수행하기 위해 권한 상승을 필요로 하는 경우, 반드시 사용자에게 명시적인 승인을 받아야 함
+- **규칙**: 파일 시스템 접근 시 사용자 승인 필요
 
 ## 🚫 Prohibited Actions (금지사항)
 

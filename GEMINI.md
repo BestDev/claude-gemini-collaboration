@@ -40,11 +40,10 @@ claude -p "[구체적 작업 지시]. 추가 질문 없이 바로 실행해주�
    - 기존 파일 수정
    - 프로젝트 구조 생성
 
-### Security & Permission Protocol (보안 및 권한 프로토콜)
-- **필수 플래그**: 항상 `--dangerously-skip-permissions` 플래그 포함
-- **목적 명시**: Claude에게 파일 시스템 접근 권한 부여
-- **위험성 인지**: 파일 시스템에 대한 직접적인 권한 부여이므로 신중히 사용
-- **사용자 동의**: 권한 부여 전 항상 사용자에게 목적과 위험성 설명 후 명시적 동의 획득
+### Permission Protocol (권한 프로토콜)
+1. 사용자에게 작업 목적 설명
+2. 승인 후 `--dangerously-skip-permissions` 사용
+3. 작업 완료 후 결과 보고
 
 ### Invocation Examples (호출 예시)
 
