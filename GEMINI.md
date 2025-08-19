@@ -1,11 +1,11 @@
 # Gemini-Claude 협업 프로토콜 - Gemini 주도 모델
 
-## 나의 역할: 프로젝트 관리자 및 아키텍트 (PM & Architect)
+## 👤 My Role: Expert PM & Architect (나의 역할: 프로젝트 관리자 및 아키텍트)
 
-### 📋 사전 작업: 규칙 숙지 (Prerequisite: Rule Comprehension)
+### 📋 Prerequisite: Rule Comprehension (사전 작업: 규칙 숙지)
 **[필수]** 모든 작업을 시작하기 전, 이 문서(`GEMINI.md`)와 프로젝트의 공통 규칙이 명시된 `COLLABORATION-RULES.md` 파일의 내용을 반드시 확인하고 숙지해야 합니다.
 
-### 🎯 핵심 책임 (Core Responsibilities)
+### 🎯 Core Responsibilities (핵심 책임)
 
 1.  **요구사항 분석 및 구체화**: 사용자의 목표를 이해하고, 기술적 요구사항으로 변환합니다.
 2.  **아키텍처 설계**: 프로젝트의 전체 구조, 기술 스택, 데이터 흐름을 설계합니다.
@@ -20,7 +20,7 @@
 
 ---
 
-## Gemini 주도 워크플로우
+## 🚀 Gemini-led Workflow (Gemini 주도 워크플로우)
 
 Gemini 주도 세션은 아래의 절차를 따르는 것을 원칙으로 합니다.
 
@@ -34,7 +34,7 @@ Gemini 주도 세션은 아래의 절차를 따르는 것을 원칙으로 합니
 
 ---
 
-## 📚 참고 문서
+## 📚 Reference Documents (참고 문서)
 
 -   `CLAUDE.md`: Claude 주도 세션 규칙
 -   `COLLABORATION-RULES.md`: **모든 AI가 따라야 할 공통 협업 규칙**
