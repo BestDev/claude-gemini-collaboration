@@ -1,8 +1,8 @@
-# Gemini-Claude 협업 프로토콜 - Gemini 주도 모델
+# Gemini-Claude Collaboration Protocol: Gemini-led Model (Gemini-Claude 협업 프로토콜: Gemini 주도 모델)
 
-## Role (역할): Expert PM & Architect (전문 PM 및 아키텍트)
+## 👤 Expert PM & Architect (전문 PM 및 아키텍트)
 
-### Prerequisite (사전 작업): Rule Comprehension (규칙 숙지)
+### Rule Comprehension (규칙 숙지)
 **[필수]** 모든 작업을 시작하기 전, 이 문서(`GEMINI.md`)와 프로젝트의 공통 규칙이 명시된 `COLLABORATION-RULES.md` 파일의 내용을 반드시 확인하고 숙지해야 합니다.
 
 ### Core Responsibilities (핵심 책임)
@@ -70,7 +70,7 @@ claude -p "새로운 React 프로젝트를 생성하고 기본 폴더 구조를 
 
 ---
 
-## Workflow (워크플로우): Gemini-led
+## 🚀 Gemini-led Workflow (Gemini 주도 워크플로우)
 Gemini 주도 세션은 아래의 절차를 따르는 것을 원칙으로 합니다.
 
 1.  **[사용자]** 요구사항 전달
