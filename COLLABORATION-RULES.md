@@ -81,14 +81,14 @@ Generated Documents (생성 문서):
 .kb/
 ├── sessions/                    # 세션별 작업 기록
 │   └── YYYY-MM-DD-작업명/
-│       ├── session-log.md       # 세션 진행 기록
-│       ├── ai-collaboration.md  # AI 간 소통 내역
-│       └── decisions.md         # 주요 결정 사항
+│       ├── session-log.md       # 세션 진행 기록 (메인 세션 AI 작성)
+│       ├── ai-collaboration.md  # AI 간 소통 내역 (메인 세션 AI 작성)
+│       └── decisions.md         # 주요 결정 사항 (메인 세션 AI 작성)
 └── projects/                    # 프로젝트별 AI 소통 기록
     └── [프로젝트명]/
-        ├── spec.md              # Gemini → Claude 작업 명세
-        ├── analysis.md          # Gemini 분석 보고서
-        └── review.md            # 상호 리뷰 기록
+        ├── spec.md              # Gemini → Claude 작업 명세 (Gemini 작성)
+        ├── analysis.md          # Gemini 분석 보고서 (Gemini 작성)
+        └── review.md            # 상호 리뷰 기록 (검증 담당 AI 작성)
 ```
 
 ### `[Project Name]/` (Project Code & Docs)
@@ -105,50 +105,68 @@ tetris_v2/
 
 ## 📝 Document Standards (문서 작성 표준)
 
+### ✍️ Document Metadata Rule (문서 메타데이터 규칙)
+
+`.kb` 디렉토리 내의 모든 문서는 최상단에 아래 형식의 메타데이터를 포함해야 한다.
+
+> - **Requester (요청자):** `User` | `Gemini` | `Claude`
+> - **Author (작성자):** `Gemini` | `Claude (Subagent 이름)`
+> - **Timestamp (생성일시):** `YYYY-MM-DD HH:MM:SS`
+> - **Purpose (목적):** [문서 생성의 핵심 목적 한 줄 요약]
+
+*참고: `작성자`가 Claude일 경우, 실제 작업을 수행한 전문가 Subagent의 이름을 괄호 안에 명시합니다.*
+
+**예시:**
+> - **Requester (요청자):** `User`
+> - **Author (작성자):** `Gemini`
+> - **Timestamp (생성일시):** `2025-08-18 14:30:00`
+> - **Purpose (목적):** `tetris_v3` 프로젝트의 초기 기능 명세 정의.
+
 ### 🔤 Keyword Format Rule (키워드 형식 규칙)
-- **중요 키워드**: 모든 문서에서 중요한 개념, 기술 용어, 파일명은 **영문 (한글)** 형식으로 통일하여 작성
+- **중요 키워드**: 모든 문서에서 중요한 개념, 기술 용어는 **영문 (한글)** 형식으로 통일하여 작성
+- **파일명 규칙**: 모든 파일명은 **영문만** 사용 (예: `spec.md`, `session-log.md`)
 - **목적**: 파일 기반 협업에서 AI 간 소통 효율성 극대화 및 검색 편의성 향상
 - **적용 범위**: `.kb/` 내 모든 문서, 프로젝트 문서, README.md 등 전체
 - **예시**: 
-  - ✅ `Implementation (구현)`, `Architecture (아키텍처)`, `Testing (테스트)`
-  - ❌ `구현`, `Implementation`, `아키텍처 설계`
+  - ✅ `Specification (명세서)`, `Analysis (분석 보고서)`, `Session Log (세션 로그)`
+  - ❌ `명세서`, `Specification`, `분석 보고서 작성`
 
 ### 📋 Gemini's spec.md Format (Gemini 명세서 형식)
 ```markdown
 # [프로젝트명] 작업 명세서
-## 목표 (Goal)
+## Goal (목표)
 [구체적인 목표]
 
-## 요구사항 (Requirements)  
+## Requirements (요구사항)  
 [기능 요구사항 나열]
 
-## 기술 스택 (Tech Stack)
+## Tech Stack (기술 스택)
 [사용할 기술/라이브러리]
 
-## 구현 가이드 (Implementation Guide)
+## Implementation Guide (구현 가이드)
 [Claude가 따라야 할 구현 순서]
 
-## 중요 규칙 재확인 (Key Rule Reminder)
-- **언어/인코딩**: 모든 파일명은 영문, 내용은 한글로 작성하며, 파일 인코딩은 UTF-8로 통일합니다.
+## Key Rule Reminder (중요 규칙 재확인)
+- **File Naming & Encoding (파일명 및 인코딩)**: 모든 파일명은 영문만, 내용은 한글로 작성하며, 파일 인코딩은 UTF-8로 통일합니다.
 - **(기타 이 작업에 특히 중요한 규칙 명시)**
 
-## 완료 조건 (Completion Criteria)
+## Completion Criteria (완료 조건)
 [작업 완료 판단 기준]
 ```
 
 ### 📄 Claude's README.md Format (Claude README 형식) - Project Root
 ```markdown
 # [프로젝트명]
-## 설명 (Description)
+## Description (설명)
 [프로젝트 한 줄 설명]
 
-## 빌드 방법 (Build Instructions)
+## Build Instructions (빌드 방법)
 [설치 및 빌드 명령어]
 
-## 사용법 (Usage)
+## Usage (사용법)
 [기본 사용법]
 
-## 의존성 (Dependencies)
+## Dependencies (의존성)
 [필요한 라이브러리/도구]
 ```
 
@@ -170,28 +188,13 @@ tetris_v2/
 - [미완료/다음 단계]
 ```
 
-### ✍️ Document Metadata Rule (문서 메타데이터 규칙)
-
-`.kb` 디렉토리 내의 모든 문서는 최상단에 아래 형식의 메타데이터를 포함해야 한다.
-
-> - **Requester (요청자):** `User` | `Gemini` | `Claude`
-> - **Author (작성자):** `Gemini` | `Claude (Subagent 이름)`
-> - **Timestamp (생성일시):** `YYYY-MM-DD HH:MM:SS`
-> - **Purpose (목적):** [문서 생성의 핵심 목적 한 줄 요약]
-
-*참고: `작성자`가 Claude일 경우, 실제 작업을 수행한 전문가 Subagent의 이름을 괄호 안에 명시합니다.*
-
-**예시:**
-> - **Requester (요청자):** `User`
-> - **Author (작성자):** `Gemini`
-> - **Timestamp (생성일시):** `2025-08-18 14:30:00`
-> - **Purpose (목적):** `tetris_v3` 프로젝트의 초기 기능 명세 정의.
 
 ## 🔄 Inter-AI Communication (AI 간 소통 원칙)
 
 ### File-Based Communication (파일 기반 소통)
 - **원칙**: 모든 작업 지시는 파일 경로를 통해 이루어짐
-- **예시**: `echo "파일 '.kb/projects/game/spec.md'를 참조하여 구현해주세요" | gemini -y`
+- **Claude → Gemini 예시**: `echo "이 아키텍처 설계에 대한 보안상 문제점이 있는지 분석해주세요" | gemini -y`
+- **Gemini → Claude 예시**: `claude -p "파일 '.kb/projects/game/spec.md'를 참조하여 게임 로직을 구현해주세요" --dangerously-skip-permissions`
 
 ### Project Folder Structure (프로젝트 폴더 구조)
 - **규칙**: 모든 개별 프로젝트는 루트 디렉토리에 자신의 이름을 딴 전용 폴더 생성
