@@ -263,11 +263,6 @@ tetris_v2/
 ### File System Access Permissions (파일 시스템 접근 권한)
 - **규칙**: AI 에이전트가 파일 시스템 접근, 네트워크 요청 등 민감한 작업을 수행하기 위해 권한 상승을 필요로 하는 경우, 반드시 사용자에게 명시적인 승인을 받아야 함
 
-### Executing Claude File Operations (Claude 파일 작업 실행)
-- **중요**: `claude`가 파일을 생성/수정하도록 지시할 때는, 반드시 `--dangerously-skip-permissions` 플래그를 포함해야 함
-- **예시**: `claude -p "피드백을 feedback.md 파일로 작성해줘." --dangerously-skip-permissions`
-- **경고**: 이 플래그는 Claude에게 파일 시스템에 대한 직접적인 권한을 부여하므로, 사용 전 항상 사용자에게 목적과 위험성을 설명하고 명시적인 동의를 얻어야 함
-
 ## 🚫 Prohibited Actions (금지사항)
 
 ### Don'ts (하지 말아야 할 것들)

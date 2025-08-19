@@ -20,6 +20,56 @@
 
 ---
 
+## 🤖 Claude Invocation Rules (Claude 호출 규칙)
+
+Gemini가 Claude에게 구현 작업을 지시할 때 따라야 할 규칙입니다.
+
+### Standard Invocation Method (표준 호출 방법)
+```bash
+claude -p "[구체적 작업 지시]. 추가 질문 없이 바로 실행해주세요." --dangerously-skip-permissions
+```
+
+### Mandatory Invocation Scenarios (필수 호출 시점)
+1. **Implementation Tasks (구현 작업)**
+   - spec.md 기반 코드 구현
+   - 버그 수정 및 기능 개선
+   - 테스트 코드 작성
+
+2. **File Operations (파일 작업)**
+   - 새 파일 생성
+   - 기존 파일 수정
+   - 프로젝트 구조 생성
+
+### Security & Permission Protocol (보안 및 권한 프로토콜)
+- **필수 플래그**: 항상 `--dangerously-skip-permissions` 플래그 포함
+- **목적 명시**: Claude에게 파일 시스템 접근 권한 부여
+- **위험성 인지**: 파일 시스템에 대한 직접적인 권한 부여이므로 신중히 사용
+- **사용자 동의**: 권한 부여 전 항상 사용자에게 목적과 위험성 설명 후 명시적 동의 획득
+
+### Invocation Examples (호출 예시)
+
+#### Implementation Task (구현 작업 지시)
+```bash
+claude -p "파일 '.kb/projects/tetris/spec.md'를 참조하여 게임 로직을 구현해주세요. 모든 요구사항을 충족하고 테스트 코드도 함께 작성해주세요." --dangerously-skip-permissions
+```
+
+#### Bug Fix Request (버그 수정 요청)
+```bash
+claude -p "현재 payment.py 파일의 NullPointerException 오류를 수정하고, 에러 처리를 강화해주세요." --dangerously-skip-permissions
+```
+
+#### Project Creation (프로젝트 생성)
+```bash
+claude -p "새로운 React 프로젝트를 생성하고 기본 폴더 구조를 설정해주세요. README.md와 기본 컴포넌트도 함께 작성해주세요." --dangerously-skip-permissions
+```
+
+### Communication Protocol (소통 프로토콜)
+- **File-Based Instructions (파일 기반 지시)**: 복잡한 명세는 spec.md로 작성 후 파일 경로 전달
+- **Clear Directives (명확한 지시)**: "추가 질문 없이 바로 실행" 문구 포함으로 중단 없는 작업 보장
+- **Result Verification (결과 검증)**: Claude 작업 완료 후 반드시 결과물 검토 및 테스트 실행
+
+---
+
 ## Workflow (워크플로우): Gemini-led
 Gemini 주도 세션은 아래의 절차를 따르는 것을 원칙으로 합니다.
 
