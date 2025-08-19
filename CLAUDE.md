@@ -12,23 +12,24 @@
 4. **작업자 직접 저장**: Claude는 코드/테스트, Gemini는 분석/설계 문서 담당
 
 ### 🎯 Core Responsibilities (핵심 책임)
-1. **즉시 실행**: 사용자 요청을 분석하여 바로 구현 착수
-2. **품질 보증**: 모든 코드는 lint, test, build 검증 필수
-3. **Subagents 조율**: 언어별 전문가 호출 및 결과 통합
-4. **완전한 파일 업데이트**: 수정 시 전체 내용으로 교체 (요약 금지)
-5. **작업 완료 보고**: 사용된 Subagent 목록 반드시 포함
+1. **Immediate Execution (즉시 실행)**: 사용자 요청을 분석하여 바로 구현 착수
+2. **Quality Assurance (품질 보증)**: 모든 코드는 lint, test, build 검증 필수
+3. **Subagents Coordination (Subagents 조율)**: 언어별 전문가 호출 및 결과 통합
+4. **Complete File Updates (완전한 파일 업데이트)**: 수정 시 전체 내용으로 교체 (요약 금지)
+5. **Task Completion Report (작업 완료 보고)**: 사용된 Subagent 목록 반드시 포함
 
 ### 📋 Task Checklist (작업 체크리스트)
-**모든 작업 시 반드시 확인:**
-- [ ] 프로젝트 전용 폴더 생성/확인
-- [ ] 필요시 `.kb/projects/[프로젝트명]/` 구조 생성
-- [ ] 적절한 Subagent 선택 및 호출
-- [ ] 코드 품질 검증 (가능한 경우)
-- [ ] 사용된 Subagent 목록 보고
+**Essential verification for every task (모든 작업 시 반드시 확인):**
+- [ ] **Project Folder Setup (프로젝트 전용 폴더 생성/확인)**
+- [ ] **Knowledge Base Structure (필요시 `.kb/projects/[프로젝트명]/` 구조 생성)**
+- [ ] **Appropriate Subagent Selection (적절한 Subagent 선택 및 호출)**
+- [ ] **Code Quality Verification (코드 품질 검증)** (가능한 경우)
+- [ ] **Subagent Usage Report (사용된 Subagent 목록 보고)**
 
-### 🔧 파일 수정 규칙
-- **단순 수정**: Edit 도구 사용
-- **복잡한 수정**: 새 파일 생성 후 교체 (예: `main_v2.cpp`)
+### 🔧 File Modification Rules (파일 수정 규칙)
+- **Single Change (단일 변경)**: Edit 도구 사용 - 1-2곳 수정
+- **Multiple Changes (다중 변경)**: MultiEdit 도구 사용 - 같은 파일 내 3곳 이상 수정  
+- **Major Refactoring (대규모 리팩토링)**: 새 파일 생성 후 교체 - 파일 구조 변경 시
 
 ## Gemini CLI Collaboration (Gemini CLI 협업)
 
@@ -44,16 +45,28 @@
 echo "[구체적 요청 내용]. 추가 질문 없이 바로 실행해주세요." | gemini -y
 ```
 
-#### 필수 호출 시점
-1. **복잡한 요구사항 분석** - 사용자 요청이 모호하거나 다단계일 때
-2. **기술 스택 결정** - 새로운 라이브러리/프레임워크 도입 전
-3. **아키텍처 설계** - 대규모 시스템 구현 전
-4. **문제 해결** - 복잡한 버그나 성능 이슈 분석
+#### Mandatory Invocation Triggers (필수 호출 시점)
+1. **Complex Requirement Analysis (복잡한 요구사항 분석)**
+   - 사용자 요청에 3개 이상의 기능이 포함된 경우
+   - 요구사항이 모호하여 추가 분석이 필요한 경우
+   - 다단계 구현이 필요한 경우 (예상 구현 시간 30분 이상)
 
-#### 호출 규칙
-- **YOLO 모드 필수**: 항상 `-y` 플래그 사용
-- **명확한 지시**: "추가 질문 없이 바로 실행" 반드시 포함
-- **파일 기반 권장**: 복잡한 내용은 파일로 저장 후 경로 전달
+2. **Technology Stack Decision (기술 스택 결정)**
+   - 프로젝트에서 처음 사용하는 라이브러리/프레임워크 도입 시
+   - 여러 기술 선택지 중 최적 선택이 필요한 경우
+
+3. **Architecture Design (아키텍처 설계)**
+   - 5개 이상의 파일이 관련된 시스템 구현 시
+   - 데이터베이스 스키마 설계가 필요한 경우
+
+4. **Problem Solving (문제 해결)**
+   - 기존 Subagent 지식으로 해결되지 않는 복잡한 이슈
+   - 최신 정보 검색이 필요한 경우
+
+#### Invocation Rules (호출 규칙)
+- **YOLO Mode Required (YOLO 모드 필수)**: 항상 `-y` 플래그 사용
+- **Clear Instructions (명확한 지시)**: "추가 질문 없이 바로 실행" 반드시 포함
+- **File-Based Recommended (파일 기반 권장)**: 복잡한 내용은 파일로 저장 후 경로 전달
 
 ## Claude-led Workflow (Claude 주도 워크플로우)
 
@@ -75,41 +88,24 @@ echo "[구체적 요청 내용]. 추가 질문 없이 바로 실행해주세요.
 ```
 
 ### 📋 Consistency Checkpoints (일관성 보장 체크포인트)
-**모든 세션에서 동일하게 적용:**
-1. **요청 분석** - 단순/복잡 구분 (Gemini 호출 여부 결정)
-2. **폴더 구조** - 프로젝트 전용 폴더 생성/확인
-3. **Subagent 선택** - 파일 확장자/프로젝트 유형 기반
-4. **품질 검증** - 가능한 경우 lint/test/build 실행
-5. **작업 보고** - 사용된 Subagents 목록 명시
+**Applied consistently across all sessions (모든 세션에서 동일하게 적용):**
+1. **Request Analysis (요청 분석)** - 위의 Mandatory Invocation Triggers 기준으로 Gemini 호출 여부 결정
+2. **Folder Structure Setup (폴더 구조)** - 프로젝트 전용 폴더 생성/확인
+3. **Subagent Selection (Subagent 선택)** - 파일 확장자/프로젝트 유형 기반
+4. **Quality Verification (품질 검증)** - 가능한 경우 lint/test/build 실행
+5. **Task Reporting (작업 보고)** - 사용된 Subagents 목록 명시
 
-## 에러 처리 프로토콜
+## Error Handling Protocol (에러 처리 프로토콜)
 
-### 🚨 구현 실패 시 대응
-```
-1. 에러 로그를 .kb/sessions/[날짜]/error-report.md에 기록
-2. Gemini에게 자문 요청
-3. 해결 방안 적용 후 재시도
-4. 재실패 시 사용자에게 보고
-```
+모든 에러 처리 및 의사결정 프로토콜은 `COLLABORATION-RULES.md`의 **"Error Handling & Decision Protocol"** 섹션을 참조하세요.
 
-### ⚖️ AI 간 의견 충돌 시
-```
-1. 각자 의견을 .kb/projects/[프로젝트명]/opinion-[ai명].md에 기록
-2. 사용자에게 상황 보고
-3. 사용자 결정 후 진행
-```
+## .kb Knowledge Base Management (.kb 지식베이스 관리)
 
-## .kb 지식베이스 관리
-
-### 📁 핵심 구조
+### 📁 Core Structure (핵심 구조)
 - **`.kb/projects/[프로젝트명]/`**: 명세, 설계, ADR 등 정적 문서
 - **`.kb/sessions/[날짜]/`**: 세션별 로그, 에러 리포트 등 기록
 
-### 📝 필수 기록 사항
-- **주요 결정**: `decision-log.md`
-- **문제 해결**: `troubleshooting.md` 
-- **Subagent 사용**: `agents-used.md`
-- **세션 요약**: `session-summary.md`
+상세한 폴더 구조와 문서 표준은 `COLLABORATION-RULES.md`의 **"Folder Structure"** 및 **"Document Standards"** 섹션을 참조하세요.
 
 ## Subagents System (Subagents 시스템) - 13개 전문가
 
@@ -135,33 +131,45 @@ echo "[구체적 요청 내용]. 추가 질문 없이 바로 실행해주세요.
 - **project-analyzer**: 프로젝트 구조 분석, 개선점 도출
 - **project-documentation-specialist**: 프로젝트 문서화, 아키텍처 다이어그램
 
-### 🔧 Subagent 선택 기준
-- **파일 확장자**: `.py` → python-expert, `.cpp` → cpp-expert
-- **프로젝트 유형**: Unity 프로젝트 → unity-expert, Unreal → unreal-expert
-- **작업 성격**: 문서화 → project-documentation-specialist
+### 🔧 Subagent Selection Criteria (Subagent 선택 기준)
 
-## 📋 Consistency Assurance Checklist (일관성 보장 체크리스트)
+#### Priority Order (우선순위 순서):
+1. **Project Type (프로젝트 유형)** - 최우선
+   - Unity 프로젝트 → unity-expert (C# 파일이어도)
+   - Unreal 프로젝트 → unreal-expert (C++ 파일이어도)
 
-### Essential Verification Items (모든 작업 시 필수 확인사항)
-- [ ] **프로젝트 폴더**: 루트에 전용 폴더 생성/확인
-- [ ] **복잡성 판단**: 단순(직접 구현) vs 복잡(Gemini 자문)
-- [ ] **적절한 Subagent 선택**: 파일 유형/프로젝트 특성 기반
-- [ ] **품질 검증**: 가능한 경우 lint/test/build 실행
-- [ ] **작업 완료 보고**: 사용된 Subagents 목록 포함
+2. **File Extension (파일 확장자)** - 2순위  
+   - `.py` → python-expert
+   - `.cpp, .h, .hpp` → cpp-expert
+   - `.cs` → dotnet-expert (Unity 제외)
+   - `.js, .ts` → nodejs-expert
 
-### Mandatory Rules for Invoking Gemini (Gemini 호출 시 필수사항)
-- [ ] **YOLO 모드**: `-y` 플래그 필수 사용
-- [ ] **명확한 지시**: "추가 질문 없이 바로 실행" 포함
-- [ ] **구체적 요청**: 모호한 표현 대신 명확한 작업 지시
+3. **Task Nature (작업 성격)** - 3순위
+   - 문서화 → project-documentation-specialist
+   - 프로젝트 분석 → project-analyzer
+   - 데이터베이스 설계 → mysql-expert/redis-expert/sqlite-expert
+
+#### Combination Rules (조합 규칙):
+- **Single Language (단일 언어)**: 해당 언어 전문가 1개만 사용
+- **Multi-Language (다중 언어)**: 주 언어 전문가 + 보조 언어 전문가 순차 호출
+- **Architecture + Implementation (아키텍처 + 구현)**: project-analyzer → 해당 언어 전문가 순서
+
+## Quality Assurance (품질 보증)
+
+모든 작업 완료 전 반드시 확인:
+- [ ] **Code Quality Verification (코드 품질 검증)**: 가능한 경우 lint/test/build 실행
+- [ ] **Subagent Usage Report (Subagent 사용 보고)**: 사용된 Subagents 목록 명시
+- [ ] **Documentation Update (문서 업데이트)**: 필요시 README.md 및 .kb 문서 갱신
 
 ---
 
-## 📚 참고 문서 (Reference Documents)
+## 📚 Reference Documents (참고 문서)
 - **COLLABORATION-RULES.md**: AI 간 공통 협업 규칙
 - **GEMINI.md**: Gemini 주도 세션 규칙
 
-## 중요 지침 (Important Instructions)
-- 사용자가 요청한 것만 정확히 수행하세요
-- 목표 달성에 절대 필요한 경우가 아니면 파일을 생성하지 마세요
-- 새 파일보다는 기존 파일 편집을 우선하세요
-- 사용자가 명시적으로 요청하지 않는 한 문서 파일(*.md)을 생성하지 마세요
+## ⚠️ Important Instructions (중요 지침)
+- **Exact Scope Adherence (정확한 범위 준수)**: 사용자가 요청한 것만 정확히 수행하세요
+- **Minimal File Creation (최소 파일 생성)**: 목표 달성에 절대 필요한 경우가 아니면 파일을 생성하지 마세요
+- **Edit Over Create (편집 우선)**: 새 파일보다는 기존 파일 편집을 우선하세요
+- **Documentation Permission (문서 허가제)**: 사용자가 명시적으로 요청하지 않는 한 문서 파일(*.md)을 생성하지 마세요
+- **Error Prevention (에러 방지)**: 작업 전 반드시 현재 파일 상태를 Read로 확인하세요
