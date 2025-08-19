@@ -1,8 +1,8 @@
-# AI 협업 공통 규칙 (AI Collaboration Common Rules)
+# AI Collaboration Common Rules (AI 협업 공통 규칙)
 
-## 🎯 핵심 철학: 사용자 중심 협업 모델
+## 🎯 Core Philosophy: User-Centric Collaboration Model (사용자 중심 협업 모델)
 
-### 협업 설계 원칙
+### Collaborative Design Principle (협업 설계 원칙)
 이 협업 규칙은 **사용자 중심 협업 모델**을 기반으로 설계되었습니다. 여러 협업 모델을 검토한 결과, 다음과 같은 이유로 이 모델을 채택했습니다:
 
 **선택 이유:**
@@ -16,7 +16,7 @@
 Gemini 명세서 작성 → Claude 구현 → [사용자 검토] → 완료
 ```
 
-### 명확한 역할 분리
+### Clear Role Separation (명확한 역할 분리)
 
 ```
 .kb/ → AI 간 협업 소통 기록 (Internal AI Communication)
@@ -24,7 +24,7 @@ Gemini 명세서 작성 → Claude 구현 → [사용자 검토] → 완료
 [프로젝트]/README.md → 프로젝트 소개 (Project Introduction) - 예외
 ```
 
-## 📋 언제 무엇을 만드는가? (Documentation Triggers)
+## 📋 Documentation Triggers (문서 생성 조건)
 
 ### ✅ 자동 생성 (Automatic Creation) - 반드시 만들어야 함
 
@@ -55,15 +55,15 @@ Gemini 명세서 작성 → Claude 구현 → [사용자 검토] → 완료
 📝 [프로젝트명]/doc/architecture.md
 ```
 
-## 🤖 AI별 담당 영역 (AI Responsibility Areas)
+## 🤖 AI Responsibility Areas (AI별 담당 영역)
 
 - **Gemini CLI**: 요구사항 분석, 아키텍처 설계, 작업 명세서 작성
 - **Claude Code**: 코드 구현, 프로젝트 README 작성, 구현 보고서 작성
 - **Documentation Specialist**: 사용자 가이드, 개발자 문서 등 고급 문서화 (요청 시에만)
 
-## 📁 폴더 구조 (Folder Structure)
+## 📁 Folder Structure (폴더 구조)
 
-### `.kb/` (AI 협업 전용)
+### `.kb/` (For AI Collaboration)
 ```
 .kb/
 ├── sessions/                    # 세션별 작업 기록
@@ -78,7 +78,7 @@ Gemini 명세서 작성 → Claude 구현 → [사용자 검토] → 완료
         └── review.md            # 상호 리뷰 기록
 ```
 
-### `[프로젝트명]/` (프로젝트 코드 및 문서)
+### `[Project Name]/` (Project Code & Docs)
 ```
 tetris_v2/
 ├── README.md                       # 프로젝트 소개 (Claude 작성)
@@ -90,9 +90,9 @@ tetris_v2/
     └── architecture.md             # 시스템 아키텍처
 ```
 
-## 📝 문서 작성 표준 (Document Standards)
+## 📝 Document Standards (문서 작성 표준)
 
-### Gemini의 spec.md 형식
+### Gemini's spec.md Format
 ```markdown
 # [프로젝트명] 작업 명세서
 ## 목표 (Goal)
@@ -115,7 +115,7 @@ tetris_v2/
 [작업 완료 판단 기준]
 ```
 
-### Claude의 README.md 형식 (프로젝트 루트)
+### Claude's README.md Format (Project Root)
 ```markdown
 # [프로젝트명]
 ## 설명 (Description)
@@ -131,7 +131,7 @@ tetris_v2/
 [필요한 라이브러리/도구]
 ```
 
-### 세션 로그 형식 (Session Log Format)
+### Session Log Format
 ```markdown
 # 세션 기록: [작업명]
 - 날짜 (Date): YYYY-MM-DD
@@ -149,7 +149,24 @@ tetris_v2/
 - [미완료/다음 단계]
 ```
 
-## 🔄 AI 간 소통 원칙 (Inter-AI Communication)
+### ✍️ Document Metadata Rule (문서 메타데이터 규칙)
+
+`.kb` 디렉토리 내의 모든 문서는 최상단에 아래 형식의 메타데이터를 포함해야 한다.
+
+> - **요청자 (Requester):** `User` | `Gemini` | `Claude`
+> - **작성자 (Author):** `Gemini` | `Claude (Subagent 이름)`
+> - **생성일시 (Timestamp):** `YYYY-MM-DD HH:MM:SS`
+> - **목적 (Purpose):** [문서 생성의 핵심 목적 한 줄 요약]
+
+*참고: `작성자`가 Claude일 경우, 실제 작업을 수행한 전문가 Subagent의 이름을 괄호 안에 명시합니다.*
+
+**예시:**
+> - **요청자 (Requester):** `User`
+> - **작성자 (Author):** `Gemini`
+> - **생성일시 (Timestamp):** `2025-08-18 14:30:00`
+> - **목적 (Purpose):** `tetris_v3` 프로젝트의 초기 기능 명세 정의.
+
+## 🔄 Inter-AI Communication (AI 간 소통 원칙)
 
 ### 1. 파일 기반 소통 (File-Based Communication)
 - **원칙**: 모든 작업 지시는 파일 경로를 통해 이루어짐
@@ -165,56 +182,65 @@ tetris_v2/
 - **Claude**: 코드, 테스트, README.md, 빌드 결과물 등을 직접 파일로 저장
 - **효율성**: 중간 전달 과정 없이 바로 저장으로 시간 단축
 
-## 🚀 기능 확장 및 변경 제안 프로토콜 (Feature Proposal Protocol)
+## ✅ 작업 시작 체크리스트 (Pre-Task Checklist)
 
-**목적**: `spec.md`에 명시되지 않은 새로운 기능이나 아이디어를 구현 AI(Claude 등)가 발견했을 때, 이를 체계적으로 제안하고 PM(Gemini)의 승인 하에 프로젝트에 반영하기 위함입니다. 이를 통해 예측 가능성을 높이고 프로젝트의 범위를 명확하게 관리합니다.
+복잡하거나 2개 이상의 AI가 협업하는 작업을 시작하기 전, 담당 AI는 아래 항목을 사용자에게 보고해야 한다.
 
-**프로세스:**
+1.  **규칙 확인:** `COLLABORATION-RULES.md`의 최신 내용을 숙지했는가?
+2.  **세션 기록:** '복잡한 협업 세션'에 해당하여 `.kb/sessions/`에 로그 디렉토리를 생성했는가?
+3.  **목표 명확화:** 사용자의 최종 목표와 완료 조건이 명확한가?
 
-1.  **[구현 AI] 아이디어 발견 및 제안서 작성**
-    *   새로운 기능이나 변경 사항을 직접 구현하지 않습니다.
-    *   대신, `.kb/projects/[프로젝트명]/feature-proposal.md` 파일에 제안서(제안 기능, 예상 장점, 구현 복잡도 등)를 작성합니다.
+## 🔬 Unit Test Rule (유닛 테스트 규칙)
 
-2.  **[구현 AI] PM에게 검토 요청**
-    *   제안서 작성이 완료되면, PM에게 파일 경로와 함께 검토를 요청합니다.
+시스템의 핵심 로직 검증을 위해 유닛 테스트를 도입하며, 모든 AI는 아래의 절차를 따른다.
 
-3.  **[PM] 제안 검토 및 결정**
-    *   PM은 제안된 기능이 프로젝트의 목표, 일정, 복잡도에 미치는 영향을 분석합니다.
-    *   `승인 (Approve)`, `보류 (Defer)`, `거절 (Reject)` 중 하나를 결정하여 제안서 파일에 기록합니다.
+1.  **PM (Gemini)의 책임:**
+    *   **명세 작성:** `spec.md`에 테스트가 필요한 **핵심 로직**과 **테스트 케이스(정상, 경계, 예외 포함)**를 명확히 정의한다.
+    *   **최종 검증:** **(A) 유닛 테스트 실행**과 **(B) 소스 코드 리뷰**를 모두 수행하여, 기능의 정확성과 코드 품질을 함께 검증한다.
 
-4.  **[PM] 명세서 업데이트 (매우 중요)**
-    *   기능이 **승인**된 경우, PM은 **반드시 원본 `spec.md` 파일을 수정**하여 승인된 기능을 새로운 요구사항으로 추가해야 합니다. `spec.md`는 항상 최종적인 단일 진실 공급원(Single Source of Truth)이어야 합니다.
+2.  **구현 (Claude)의 책임:**
+    *   **코드 작성:** `spec.md`에 명시된 기능 코드와 유닛 테스트 코드를 함께 작성한다.
+    *   **파일 분리:** 모든 테스트 코드는 `tests/` 디렉토리에, 소스 코드와 분리된 별도 파일로 작성한다.
 
-5.  **[구현 AI] 승인된 기능 구현**
-    *   구현 AI는 `spec.md`가 업데이트된 것을 확인한 후에만 해당 기능의 구현을 시작합니다.
+3.  **빌드 시스템의 요구사항:**
+    *   빌드 스크립트(`CMakeLists.txt` 등)는 실제 애플리케이션과 테스트 실행 파일을 **별개의 타겟**으로 빌드해야 한다.
 
-## 🚨 에러 처리 및 의사결정 프로토콜
+## 🚀 기능 추가/변경 제안 규칙 (Feature Proposal Rule)
 
-### 구현 실패 시 대응 (Implementation Failure Response)
+`spec.md`에 명시되지 않은 기능은 아래 절차를 통해서만 제안하고 구현할 수 있다.
+
+1.  **구현 AI:** 새 기능을 직접 구현하는 대신, `.kb/projects/[프로젝트명]/feature-proposal.md`에 제안서를 작성하고 PM에게 검토를 요청한다.
+2.  **PM:** 제안을 검토 후 `승인/보류/거절`을 결정하여 제안서에 기록한다.
+3.  **PM (승인 시):** **반드시 `spec.md`를 수정**하여 승인된 기능을 요구사항에 추가한다.
+4.  **구현 AI:** `spec.md`가 수정된 것을 확인한 후에만 기능 구현을 시작한다.
+
+## 🚨 에러 처리 및 의사결정 프로토콜 (Error Handling & Decision Protocol)
+
+### 구현 실패 시 대응 (Response to Implementation Failure)
 1. **실패 AI**: 실패 원인과 상세한 에러 로그를 `.kb/sessions/[세션명]/error-report.md`에 기록
 2. **실패 AI**: 상대 AI에게 자문 요청
 3. **자문 AI**: 문제 분석 후 해결 방안을 `.kb/sessions/[세션명]/solution-proposal.md`에 작성
 4. **실패 AI**: 자문 AI 제안 방안으로 재시도
 5. **재시도 실패 시**: 사용자에게 실패 사실과 파일 경로들 보고 후 결정 요청
 
-### 보안 문제 발생 시 (Security Issue Response)
+### 보안 문제 발생 시 (Response to Security Issue)
 1. **감지 AI**: 보안 위험 감지 즉시 작업 중단
 2. **감지 AI**: 보안 문제 상세 내용을 `.kb/sessions/[세션명]/security-alert.md`에 기록
 3. **감지 AI**: 사용자에게 즉시 보안 위험 경고 및 파일 경로 보고
 4. **사용자**: 보안 위험 평가 후 조치 결정
 
-### AI 간 의견 불일치 해결 (AI Opinion Conflicts)
+### AI 간 의견 불일치 해결 (Resolving AI Disagreements)
 1. **각 AI**: 자신의 의견과 근거를 `.kb/projects/[프로젝트명]/opinion-[ai명].md`에 기록
 2. **양측**: 사용자에게 의견 불일치 상황과 파일 경로들 보고
 3. **사용자**: 양측 의견 검토 후 최종 결정
 4. **결정된 AI**: 사용자 결정 내용을 `.kb/projects/[프로젝트명]/final-decision.md`에 기록
 
-## 🛡️ 보안 및 권한 승인 프로토콜
+## 🛡️ 보안 및 권한 승인 프로토콜 (Security & Permission Protocol)
 
-### 파일 시스템 접근 권한
+### 파일 시스템 접근 권한 (File System Access Permissions)
 - **규칙**: AI 에이전트가 파일 시스템 접근, 네트워크 요청 등 민감한 작업을 수행하기 위해 권한 상승을 필요로 하는 경우, 반드시 사용자에게 명시적인 승인을 받아야 함
 
-### Claude 파일 작업 실행
+### Claude 파일 작업 실행 (Executing Claude File Operations)
 - **중요**: `claude`가 파일을 생성/수정하도록 지시할 때는, 반드시 `--dangerously-skip-permissions` 플래그를 포함해야 함
 - **예시**: `claude -p "피드백을 feedback.md 파일로 작성해줘." --dangerously-skip-permissions`
 - **경고**: 이 플래그는 Claude에게 파일 시스템에 대한 직접적인 권한을 부여하므로, 사용 전 항상 사용자에게 목적과 위험성을 설명하고 명시적인 동의를 얻어야 함
@@ -235,7 +261,7 @@ tetris_v2/
 ✅ AI는 자신의 담당 영역에만 문서 작성
 ✅ 복잡한 작업만 세션 기록
 ✅ 사용자가 요청할 때만 고급 문서화
-✅ **언어 및 인코딩**: 모든 **파일명은 영문**으로, **내용은 한글**로 작성합니다. 모든 파일의 **인코딩은 UTF-8**로 통일합니다.
+✅ **언어 및 인코딩 (UTF-8 통일)**: 모든 **파일명은 영문**으로, **내용은 한글**로 작성합니다. 모든 파일의 **인코딩은 UTF-8**로 통일합니다.
 ✅ 파일 수정 시 전체 내용으로 교체
 ✅ README.md는 각 프로젝트 루트에 위치 (다른 사용자 접근성 우선)
 ```
@@ -255,12 +281,10 @@ tetris_v2/
 
 ---
 
-## 🤝 상호작용 특별 프로토콜 (Special Interaction Protocols)
+## 🔎 Gemini Fact-Verification Rule (Gemini 사실 검증 규칙)
 
-### Gemini 사실 검증 요청 프로토콜 (Fact-Verification Request Protocol for Gemini)
+Gemini는 답변의 신뢰도를 보장하기 위해 아래 규칙을 따른다.
 
-**목적**: Gemini가 **사용자 또는 다른 AI로부터** 최신 정보나 검증된 사실을 요청받았을 때, 답변의 신뢰도를 보장하기 위해 따르는 프로토콜입니다. 이 규칙은 **Gemini가 모든 요청에 대해 무조건 외부 정보 검색을 우선하도록** 강제하여 답변의 신뢰도를 높이는 것을 목표로 합니다.
-
-1.  **외부 정보 우선 검색 원칙**: Gemini는 외부 정보(예: 최신 라이브러리 버전, 특정 API 사용법)가 조금이라도 관련될 수 있는 모든 요청에 대해, 내부 지식 사용에 앞서 **`google_web_search`를 최우선으로 실행**해야 합니다.
-2.  **내부 지식 사용 시 근거 제시**: Gemini가 일반적인 알고리즘이나 프로그래밍 개념처럼 내부 지식을 활용할 경우, **반드시 제안의 근거가 되는 일반 원칙이나 훈련 데이터의 패턴을 함께 설명**해야 합니다.
-3.  **사용자/AI의 검증 요청 시 절대 복종**: 요청 프롬프트에 **"검색해서 확인해줘", "최신 정보로 알려줘", "공식 문서 찾아줘"** 와 같은 '검증'을 암시하는 키워드가 포함될 경우, Gemini는 **어떤 상황에서도 `google_web_search`를 실행하여 답변**해야 합니다.
+1.  **외부 정보 우선:** 최신 정보, API 등 사실 확인이 필요한 모든 요청에 대해, 내부 지식보다 `google_web_search`를 우선적으로 사용한다.
+2.  **내부 지식 근거 제시:** 일반적인 개념을 설명할 경우, 그 근거가 되는 원칙을 함께 제시한다.
+3.  **검증 요청 시 검색 필수:** 사용자가 "검색해줘", "확인해줘" 등의 키워드로 요청 시, 반드시 `google_web_search`를 실행한다.

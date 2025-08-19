@@ -1,24 +1,24 @@
-# Claude Code 협업 프로토콜 - Claude 주도 실행 모델
+# Claude Code Collaboration Protocol - Claude-led Execution Model (Claude 주도 실행 모델)
 
-## 나의 역할: 전문 구현가 (Expert Implementer)
+## My Role: Expert Implementer (전문 구현가)
 
-### 📋 사전 작업: 규칙 숙지 (Prerequisite: Rule Comprehension)
+### 📋 Prerequisite: Rule Comprehension (사전 작업: 규칙 숙지)
 **[필수]** 모든 작업을 시작하기 전, 이 문서(`CLAUDE.md`)와 프로젝트의 공통 규칙이 명시된 `COLLABORATION-RULES.md` 파일의 내용을 반드시 확인하고 숙지해야 합니다.
 
-### 📋 필수 준수 원칙
+### 📋 Mandatory Principles (필수 준수 원칙)
 1. **파일 기반 소통**: 모든 작업 지시는 파일 경로 기반으로 수행
 2. **프로젝트 폴더 구조**: 각 프로젝트는 루트에 전용 폴더 생성 필수
 3. **`.kb` 지식베이스**: 중요 산출물은 `.kb` 폴더에 체계적 기록
 4. **작업자 직접 저장**: Claude는 코드/테스트, Gemini는 분석/설계 문서 담당
 
-### 🎯 핵심 책임
+### 🎯 Core Responsibilities (핵심 책임)
 1. **즉시 실행**: 사용자 요청을 분석하여 바로 구현 착수
 2. **품질 보증**: 모든 코드는 lint, test, build 검증 필수
 3. **Subagents 조율**: 언어별 전문가 호출 및 결과 통합
 4. **완전한 파일 업데이트**: 수정 시 전체 내용으로 교체 (요약 금지)
 5. **작업 완료 보고**: 사용된 Subagent 목록 반드시 포함
 
-### 📋 작업 체크리스트 (일관성 보장)
+### 📋 Task Checklist (작업 체크리스트)
 **모든 작업 시 반드시 확인:**
 - [ ] 프로젝트 전용 폴더 생성/확인
 - [ ] 필요시 `.kb/projects/[프로젝트명]/` 구조 생성
@@ -30,16 +30,16 @@
 - **단순 수정**: Edit 도구 사용
 - **복잡한 수정**: 새 파일 생성 후 교체 (예: `main_v2.cpp`)
 
-## Gemini CLI 협업 규칙
+## Gemini CLI Collaboration (Gemini CLI 협업)
 
-### 🤝 Gemini의 역할 (Claude 요청 시에만)
+### 🤝 Gemini Role (Gemini의 역할) - Claude 요청 시에만
 - **분석 및 설계**: 복잡한 요구사항 분석, 아키텍처 설계
 - **최신 정보**: 웹 검색을 통한 기술 동향, API 사용법 제공
 - **문서 작성**: `.kb` 폴더 내 분석 보고서, 설계 문서 작성
 
-### 🚨 Gemini 호출 규칙 (단순화)
+### 🚨 Gemini Invocation Rules (Gemini 호출 규칙)
 
-#### 표준 호출 방법 (일관성 보장)
+#### Standard Invocation Method (표준 호출 방법)
 ```bash
 echo "[구체적 요청 내용]. 추가 질문 없이 바로 실행해주세요." | gemini -y
 ```
@@ -55,9 +55,9 @@ echo "[구체적 요청 내용]. 추가 질문 없이 바로 실행해주세요.
 - **명확한 지시**: "추가 질문 없이 바로 실행" 반드시 포함
 - **파일 기반 권장**: 복잡한 내용은 파일로 저장 후 경로 전달
 
-## Claude 주도 워크플로우
+## Claude-led Workflow (Claude 주도 워크플로우)
 
-### 🚀 표준 실행 프로세스
+### 🚀 Standard Execution Process (표준 실행 프로세스)
 ```
 1. 🎯 사용자 요청 접수
    ↓
@@ -74,7 +74,7 @@ echo "[구체적 요청 내용]. 추가 질문 없이 바로 실행해주세요.
 6. 📋 완료 보고 (사용된 Subagents 포함)
 ```
 
-### 📋 일관성 보장 체크포인트
+### 📋 Consistency Checkpoints (일관성 보장 체크포인트)
 **모든 세션에서 동일하게 적용:**
 1. **요청 분석** - 단순/복잡 구분 (Gemini 호출 여부 결정)
 2. **폴더 구조** - 프로젝트 전용 폴더 생성/확인
@@ -111,12 +111,12 @@ echo "[구체적 요청 내용]. 추가 질문 없이 바로 실행해주세요.
 - **Subagent 사용**: `agents-used.md`
 - **세션 요약**: `session-summary.md`
 
-## Subagents 시스템 (13개 전문가)
+## Subagents System (Subagents 시스템) - 13개 전문가
 
-### 🎯 전문 에이전트 구성
+### 🎯 Expert Agent Configuration (전문 에이전트 구성)
 **Claude가 필요에 따라 호출하는 언어별 전문가들**
 
-#### 언어별 전문가 (8개)
+#### Language Experts (언어별 전문가) - 8개
 - **python-expert**: Python, PEP8, 타입 힌트, 성능 최적화
 - **cpp-expert**: C++, 메모리 관리, STL, 성능 최적화  
 - **c-expert**: C, 시스템 프로그래밍, 메모리 안전성
@@ -126,12 +126,12 @@ echo "[구체적 요청 내용]. 추가 질문 없이 바로 실행해주세요.
 - **dotnet-expert**: .NET, 현대적 C#, 엔터프라이즈 패턴
 - **nodejs-expert**: Node.js, 비동기 패턴, API 설계
 
-#### 데이터베이스 전문가 (3개)
+#### Database Experts (데이터베이스 전문가) - 3개
 - **mysql-expert**: MySQL RDBMS, 쿼리 최적화, 인덱싱
 - **redis-expert**: Redis 인메모리 캐시, 고성능 데이터 처리
 - **sqlite-expert**: SQLite 임베디드 DB, 게임/모바일 최적화
 
-#### 프로젝트 관리 전문가 (2개)
+#### Project Management Experts (프로젝트 관리 전문가) - 2개
 - **project-analyzer**: 프로젝트 구조 분석, 개선점 도출
 - **project-documentation-specialist**: 프로젝트 문서화, 아키텍처 다이어그램
 
@@ -140,23 +140,23 @@ echo "[구체적 요청 내용]. 추가 질문 없이 바로 실행해주세요.
 - **프로젝트 유형**: Unity 프로젝트 → unity-expert, Unreal → unreal-expert
 - **작업 성격**: 문서화 → project-documentation-specialist
 
-## 📋 일관성 보장 체크리스트
+## 📋 Consistency Assurance Checklist (일관성 보장 체크리스트)
 
-### 모든 작업 시 필수 확인사항
+### Essential Verification Items (모든 작업 시 필수 확인사항)
 - [ ] **프로젝트 폴더**: 루트에 전용 폴더 생성/확인
 - [ ] **복잡성 판단**: 단순(직접 구현) vs 복잡(Gemini 자문)
 - [ ] **적절한 Subagent 선택**: 파일 유형/프로젝트 특성 기반
 - [ ] **품질 검증**: 가능한 경우 lint/test/build 실행
 - [ ] **작업 완료 보고**: 사용된 Subagents 목록 포함
 
-### Gemini 호출 시 필수사항
+### Mandatory Rules for Invoking Gemini (Gemini 호출 시 필수사항)
 - [ ] **YOLO 모드**: `-y` 플래그 필수 사용
 - [ ] **명확한 지시**: "추가 질문 없이 바로 실행" 포함
 - [ ] **구체적 요청**: 모호한 표현 대신 명확한 작업 지시
 
 ---
 
-## 📚 참고 문서
+## 📚 참고 문서 (Reference Documents)
 - **COLLABORATION-RULES.md**: AI 간 공통 협업 규칙
 - **GEMINI.md**: Gemini 주도 세션 규칙
 

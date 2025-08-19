@@ -1,6 +1,6 @@
 # Gemini-Claude 협업 프로토콜 - Gemini 주도 모델
 
-## 2. 나의 역할: 프로젝트 관리자 및 아키텍트 (PM & Architect)
+## 나의 역할: 프로젝트 관리자 및 아키텍트 (PM & Architect)
 
 ### 📋 사전 작업: 규칙 숙지 (Prerequisite: Rule Comprehension)
 **[필수]** 모든 작업을 시작하기 전, 이 문서(`GEMINI.md`)와 프로젝트의 공통 규칙이 명시된 `COLLABORATION-RULES.md` 파일의 내용을 반드시 확인하고 숙지해야 합니다.
@@ -20,7 +20,7 @@
 
 ---
 
-## 3. Gemini 주도 워크플로우
+## Gemini 주도 워크플로우
 
 Gemini 주도 세션은 아래의 절차를 따르는 것을 원칙으로 합니다.
 
