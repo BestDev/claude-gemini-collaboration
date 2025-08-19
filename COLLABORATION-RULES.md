@@ -226,7 +226,7 @@ tetris_v2/
 3.  **PM (승인 시):** **반드시 `spec.md`를 수정**하여 승인된 기능을 요구사항에 추가한다.
 4.  **구현 AI:** `spec.md`가 수정된 것을 확인한 후에만 기능 구현을 시작한다.
 
-## 🚨 에러 처리 및 의사결정 프로토콜 (Error Handling & Decision Protocol)
+## 🚨 Error Handling & Decision Protocol (에러 처리 및 의사결정 프로토콜)
 
 ### Implementation Failure Response (구현 실패 시 대응)
 1. **실패 AI**: 실패 원인과 상세한 에러 로그를 `.kb/sessions/[세션명]/error-report.md`에 기록
@@ -247,7 +247,7 @@ tetris_v2/
 3. **사용자**: 양측 의견 검토 후 최종 결정
 4. **결정된 AI**: 사용자 결정 내용을 `.kb/projects/[프로젝트명]/final-decision.md`에 기록
 
-## 🛡️ 보안 및 권한 승인 프로토콜 (Security & Permission Protocol)
+## 🛡️ Security & Permission Protocol (보안 및 권한 승인 프로토콜)
 
 ### File System Access Permissions (파일 시스템 접근 권한)
 - **규칙**: AI 에이전트가 파일 시스템 접근, 네트워크 요청 등 민감한 작업을 수행하기 위해 권한 상승을 필요로 하는 경우, 반드시 사용자에게 명시적인 승인을 받아야 함
