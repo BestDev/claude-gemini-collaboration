@@ -105,6 +105,14 @@ tetris_v2/
 
 ## 📝 Document Standards (문서 작성 표준)
 
+### 🔤 Keyword Format Rule (키워드 형식 규칙)
+- **중요 키워드**: 모든 문서에서 중요한 개념, 기술 용어, 파일명은 **영문 (한글)** 형식으로 통일하여 작성
+- **목적**: 파일 기반 협업에서 AI 간 소통 효율성 극대화 및 검색 편의성 향상
+- **적용 범위**: `.kb/` 내 모든 문서, 프로젝트 문서, README.md 등 전체
+- **예시**: 
+  - ✅ `Implementation (구현)`, `Architecture (아키텍처)`, `Testing (테스트)`
+  - ❌ `구현`, `Implementation`, `아키텍처 설계`
+
 ### 📋 Gemini's spec.md Format (Gemini 명세서 형식)
 ```markdown
 # [프로젝트명] 작업 명세서
