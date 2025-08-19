@@ -19,8 +19,9 @@
 
 이 저장소의 핵심 프로토콜 파일들을 당신의 프로젝트 루트 디렉토리로 복사합니다.
 
--   `GEMINI.md`
--   `CLAUDE.md`
+-   `GEMINI.md` - [→ 상세 규칙 보기](GEMINI.md)
+-   `CLAUDE.md` - [→ 상세 규칙 보기](CLAUDE.md)
+-   `COLLABORATION-RULES.md` - [→ 공통 협업 규칙 보기](COLLABORATION-RULES.md)
 -   `.kb/` 폴더 전체
 
 > 💡 **팁:** 이 저장소의 전체 구조가 궁금하다면, 바로 아래의 **'프로젝트 아키텍처'** 섹션을 참고하세요.
@@ -132,35 +133,35 @@ graph TD
 
 ```mermaid
 flowchart TD
-    subgraph Scenario1 ["🏢 시나리오 1: Gemini 주도 (복잡한 신규 프로젝트)"]
-        A1[사용자 요청] --> B1[Gemini 분석]
-        B1 --> C1[명세서 작성]
-        C1 --> D1[사용자 승인]
-        D1 --> E1[Claude 구현]
-        E1 --> F1[Gemini 검증]
-        F1 --> G1[최종 보고]
+    subgraph Scenario1 ["🏢 Scenario 1 (시나리오 1): Gemini-led Workflow (Gemini 주도 - 복잡한 신규 프로젝트)"]
+        A1[User Request<br/>사용자 요청] --> B1[Gemini Analysis & Planning<br/>Gemini 분석 및 계획 수립]
+        B1 --> C1[User Plan Approval<br/>사용자 계획 승인]
+        C1 --> D1[Gemini spec.md Creation<br/>Gemini 명세서 작성]
+        D1 --> E1[Claude Implementation<br/>Claude 구현]
+        E1 --> F1[Gemini Verification<br/>Gemini 결과 검증]
+        F1 --> G1[User Final Review<br/>사용자 최종 검토]
     end
     
-    subgraph Scenario2 ["⚡ 시나리오 2: Claude 주도 (빠른 수정, 버그픽스)"]
-        A2[사용자 요청] --> B2[Claude 즉시 분석]
-        B2 --> C2{Gemini 자문 필요?}
-        C2 -->|Yes| D2[Gemini 자문]
-        C2 -->|No| E2[Claude 직접 구현]
+    subgraph Scenario2 ["⚡ Scenario 2 (시나리오 2): Claude-led Workflow (Claude 주도 - 빠른 수정, 버그픽스)"]
+        A2[User Request<br/>사용자 요청] --> B2[Claude Immediate Analysis<br/>Claude 즉시 분석]
+        B2 --> C2{Gemini Consultation Needed?<br/>Gemini 자문 필요?}
+        C2 -->|Yes| D2[Gemini Consultation<br/>Gemini 자문]
+        C2 -->|No| E2[Claude Direct Implementation<br/>Claude 직접 구현]
         D2 --> E2
-        E2 --> F2[자체 검증]
-        F2 --> G2[최종 보고]
+        E2 --> F2[Self Quality Verification<br/>자체 품질 검증]
+        F2 --> G2[Final Report with Subagents<br/>Subagent 목록 포함 최종 보고]
     end
 ```
 
-### 시나리오 1: Gemini 주도 워크플로우 (복잡한 신규 프로젝트)
+### Scenario 1 (시나리오 1): Gemini-led Workflow (Gemini 주도 - 복잡한 신규 프로젝트)
 
-> **건축가(Gemini)가 청사진을 그리면, 전문 시공사(Claude)가 건물을 짓는 모델**
+> **Architect (아키텍트, Gemini)가 Blueprint (청사진)을 그리면, Expert Builder (전문 시공사, Claude)가 Building (건물)을 짓는 모델**
 
-1.  **[사용자]** "음성인식 비서를 위한 실시간 오디오 처리 파이프라인을 구축해줘" 같이 추상적인 아이디어를 Gemini에게 전달합니다.
-2.  **[Gemini 🧠]** 아이디어를 분석하여 아키텍처, 기술 스택, 폴더 구조, 클래스 다이어그램까지 포함된 상세한 **작업 명세서(`spec.md`)**를 `.kb` 폴더에 작성합니다.
-3.  **[사용자]** Gemini가 만든 명세서(청사진)를 검토하고 승인합니다.
-4.  **[Gemini 🧠]** 승인된 명세서를 Claude에게 전달하며 구현을 지시합니다.
-5.  **[Claude ⚡]** 명세서를 기반으로, 내부의 **전문가 에이전트(Subagents)** 팀(예: CppExpert, PythonExpert)을 동원하여 실제 코드를 작성하고 파일로 저장합니다. 모든 작업이 끝나면 **어떤 전문가를 사용했는지 보고**합니다.
+1.  **[User 사용자]** "음성인식 비서를 위한 실시간 오디오 처리 파이프라인을 구축해줘" 같이 추상적인 아이디어를 Gemini에게 전달합니다.
+2.  **[Gemini 🧠]** Requirements Analysis & Architecture Design (요구사항 분석 및 아키텍처 설계)를 수행하여 전체 계획을 수립합니다.
+3.  **[User 사용자]** Gemini가 제시한 Plan (계획)을 검토하고 승인합니다.
+4.  **[Gemini 🧠]** 승인된 계획에 따라 상세한 **Implementation Specification (`spec.md`, 구현 명세서)**를 `.kb/projects/[프로젝트명]/` 폴더에 작성하고 Claude에게 전달합니다.
+5.  **[Claude ⚡]** 명세서를 기반으로, 내부의 **Specialized Subagents (전문가 에이전트)** 팀(예: cpp-expert, python-expert)을 동원하여 실제 코드를 작성하고 파일로 저장합니다. 모든 작업이 끝나면 **사용된 Subagent 목록을 반드시 보고**합니다.
 
 ### 🤖 Subagents 전문가 시스템 아키텍처
 
@@ -207,20 +208,31 @@ graph TB
 ```
 
 **주요 특징:**
-- **계층적 구조**: L1(기획) → L2(조율) → L3(전문 실행)
-- **병렬 처리**: 독립적인 작업을 동시에 수행하여 효율성 극대화
-- **작업 완료 시 보고 의무**: Claude는 모든 작업 완료 시 **사용된 Subagent 내역을 반드시 보고**
+- **Hierarchical Structure (계층적 구조)**: L1(Planning 기획) → L2(Coordination 조율) → L3(Specialized Execution 전문 실행)
+- **Parallel Processing (병렬 처리)**: 독립적인 작업을 동시에 수행하여 효율성 극대화
+- **Mandatory Reporting (필수 보고 의무)**: Claude는 모든 작업 완료 시 **사용된 Subagent 목록을 반드시 보고**
+
+**Subagent Selection Criteria (Subagent 선택 기준):**
+1. **Project Type Priority (프로젝트 유형 우선)**: Unity → unity-expert, Unreal → unreal-expert
+2. **File Extension (파일 확장자)**: `.py` → python-expert, `.cpp` → cpp-expert, `.cs` → dotnet-expert
+3. **Task Nature (작업 성격)**: Documentation → project-documentation-specialist, Analysis → project-analyzer
+
+> 📖 **더 자세한 Subagent 시스템**: [CLAUDE.md - Subagents System](CLAUDE.md#subagents-system-subagents-시스템---13개-전문가) 참조
+
+**Quality Assurance Process (품질 보증 프로세스):**
+- **Code Quality Verification (코드 품질 검증)**: 가능한 경우 lint/test/build 자동 실행
+- **Completion Report (완료 보고)**: 사용된 Subagent 목록과 작업 결과 상세 보고
 6.  **[Gemini 🧠]** Claude가 제출한 코드를 **컴파일, 테스트, 정적 분석**하여 품질을 검증하고 사용자에게 최종 보고합니다.
 
-### 시나리오 2: Claude 주도 워크플로우 (빠른 프로토타이핑, 버그 수정)
+### Scenario 2 (시나리오 2): Claude-led Workflow (Claude 주도 - 빠른 프로토타이핑, 버그 수정)
 
-> **현장 기술자(Claude)가 문제를 해결하고, 필요시 본사의 설계팀(Gemini)에 자문을 구하는 모델**
+> **Field Engineer (현장 기술자, Claude)가 문제를 해결하고, 필요시 Headquarters Design Team (본사 설계팀, Gemini)에 Consultation (자문)을 구하는 모델**
 
-1.  **[사용자]** "결제 모듈에서 `NullPointerException`이 발생하고 있어. `Payment.java`를 수정해줘" 같이 구체적인 작업을 Claude에게 지시합니다.
-2.  **[Claude ⚡]** 즉시 코드 분석 및 수정에 착수합니다. 만약 문제의 원인이 더 깊은 설계 결함에 있다고 판단되면, 작업을 멈추고 Gemini에게 자문을 요청합니다.
-3.  **[Gemini 🧠]** Claude의 요청에 따라 근본 원인을 분석하고, 해결을 위한 **솔루션 제안서(`solution-proposal.md`)**를 작성하여 회신합니다.
-4.  **[사용자]** Gemini의 해결책을 검토하고 진행 방향을 승인합니다.
-5.  **[Claude ⚡]** 승인된 해결책에 따라 최종적으로 코드를 수정하고, **자체 품질 검증(빌드, 회귀 테스트)**을 거쳐 사용자에게 완료 보고를 합니다.
+1.  **[User 사용자]** "결제 모듈에서 `NullPointerException`이 발생하고 있어. `Payment.java`를 수정해줘" 같이 구체적인 작업을 Claude에게 지시합니다.
+2.  **[Claude ⚡]** Immediate Analysis & Implementation (즉시 분석 및 구현)에 착수합니다. 만약 문제의 원인이 더 깊은 Design Flaw (설계 결함)에 있다고 판단되면, 작업을 멈추고 Gemini에게 Consultation (자문)을 요청합니다.
+3.  **[Gemini 🧠]** Claude의 요청에 따라 Root Cause Analysis (근본 원인 분석)를 수행하고, 해결을 위한 **Solution Proposal (`solution-proposal.md`, 솔루션 제안서)**를 작성하여 회신합니다.
+4.  **[User 사용자]** Gemini의 Solution (해결책)을 검토하고 진행 방향을 승인합니다.
+5.  **[Claude ⚡]** 승인된 해결책에 따라 최종적으로 코드를 수정하고, **Self Quality Verification (자체 품질 검증 - build, regression test)**을 거쳐 **사용된 Subagent 목록과 함께** 사용자에게 완료 보고를 합니다.
 
 ---
 
@@ -231,19 +243,47 @@ graph TB
 | **핵심 임무** | **"무엇을, 왜"** 결정 | **"어떻게"** 구현 |
 | **주요 책임** | <ul><li>요구사항 분석 및 구체화</li><li>아키텍처 설계 및 기술 결정</li><li>작업 계획 및 상세 명세서 작성</li><li>최종 결과물 통합 및 검증</li></ul> | <ul><li>명세서 기반의 정확한 코드 구현</li><li>**13개의 내부 전문가(Subagents) 팀 조율**</li><li>**코드 품질 자동 검증 (Lint, Build, Test)**</li><li>구현 실패 시 대안 제시 및 보고</li></ul> |
 
-## ⚙️ 더 깊이 알아보기: 우리만의 약속
+## ⚙️ Core Collaboration Principles (핵심 협업 원칙): 우리만의 약속
 
--   **파일 기반 소통:** 모든 것은 파일로 이야기합니다. 이는 모든 과정을 투명하게 추적하고, AI가 내린 결정의 근거를 명확히 남기기 위함입니다.
--   **`.kb` 지식베이스:** 프로젝트의 단순 결과물(코드)뿐만 아니라, 그 과정(왜 그렇게 만들었는가)까지 모두 기록하는 프로젝트의 '뇌'입니다. 에러 해결 과정, 기술 선택의 이유 등이 모두 담깁니다.
--   **사용자 주도:** AI는 당신의 가장 유능한 팀원이지만, 프로젝트의 선장은 언제나 당신입니다. 모든 핵심 단계에서 최종 결정은 당신의 몫입니다.
--   **품질 보증:** Claude는 코드를 작성한 후, 자체적으로 빌드, 린팅, 테스트를 포함한 품질 검증 프로세스를 수행하여 안정성을 확보합니다.
--   **하이브리드 파일 수정 프로토콜:** 단순한 수정(변수명 변경 등)은 즉시 `replace` 명령어로 처리하고, 복잡한 수정이나 `replace` 실패 시에는 **"Staged Write(단계적 쓰기)"** 방식으로 새 파일(`main_v2.cpp`)을 생성 후 검증을 거쳐 교체합니다.
+### 🗂️ File-Based Communication (파일 기반 소통)
+모든 AI 간 소통은 파일 경로를 통해 이루어집니다. 이는 모든 과정을 투명하게 추적하고, AI가 내린 결정의 근거를 명확히 남기기 위함입니다.
+- **파일 기반 지시**: `echo "파일 '.kb/projects/game/spec.md'를 참조하여 구현해주세요" | gemini -y`
+- **UTF-8 Encoding (UTF-8 인코딩)**: 모든 파일명은 영문, 내용은 한글, 인코딩은 UTF-8로 통일
+
+> 📖 **상세 규칙**: [COLLABORATION-RULES.md - Inter-AI Communication](COLLABORATION-RULES.md#-inter-ai-communication-ai-간-소통-원칙) 참조
+
+### 🧠 Knowledge Base System (`.kb` 지식베이스 시스템)
+프로젝트의 단순 결과물(코드)뿐만 아니라, 그 과정(왜 그렇게 만들었는가)까지 모두 기록하는 프로젝트의 '뇌'입니다.
+- **`.kb/projects/[프로젝트명]/`**: 명세서, 설계 문서, ADR 등 정적 문서
+- **`.kb/sessions/[날짜]/`**: Complex Collaboration 조건 충족 시 세션 로그 자동 생성
+
+### 👑 User-Centric Control (사용자 중심 제어)
+AI는 당신의 가장 유능한 팀원이지만, 프로젝트의 선장은 언제나 당신입니다. 모든 핵심 단계에서 최종 결정은 당신의 몫입니다.
+
+### ✅ Quality Assurance Protocol (품질 보증 프로토콜)
+Claude는 코드를 작성한 후, 자체적으로 빌드, 린팅, 테스트를 포함한 품질 검증 프로세스를 수행하여 안정성을 확보합니다.
+- **Mandatory Quality Verification (필수 품질 검증)**: lint/test/build 가능한 경우 자동 실행
+- **Error Handling Protocol (에러 처리 프로토콜)**: 실패 시 `.kb/sessions/[세션명]/error-report.md` 생성
+
+### 🔄 Hybrid File Modification (하이브리드 파일 수정)
+- **Simple Changes (단순 변경)**: Edit 도구로 1-2곳 수정
+- **Multiple Changes (다중 변경)**: MultiEdit 도구로 같은 파일 내 3곳 이상 수정
+- **Major Refactoring (대규모 리팩토링)**: 새 파일 생성 후 교체
+
+### 📋 Complex Collaboration Triggers (복잡한 협업 트리거)
+다음 조건 중 하나라도 해당하면 `.kb/sessions/` 디렉토리에 세션 로그를 자동 생성:
+- 2개 이상 AI가 협업하는 경우
+- 3개 이상 파일을 수정하는 경우  
+- 새로운 기술 스택 도입이 필요한 경우
+- 사용자가 "세션 기록해줘", "문서화해줘" 요청하는 경우
+
+> 📖 **전체 조건 및 규칙**: [COLLABORATION-RULES.md - Complex Collaboration](COLLABORATION-RULES.md#2-complex-collaboration-복잡한-협업-세션-시---다음-조건-중-하나라도-해당) 참조
 
 ## ⚠️ 중요: 권한 및 설정
 
 -   **AI 에이전트 설치:** 이 프로토콜을 사용하려면 `gemini`와 `claude` CLI 도구가 모두 설치 및 설정되어 있어야 합니다.
--   **Gemini → Claude 호출 시 (파일 쓰기 권한):** Gemini가 Claude에게 파일 생성을 지시할 때는, 보안상의 이유로 명령어에 `--dangerously-skip-permissions` 플래그를 포함해야 합니다. 이는 Claude에게 파일 시스템 접근 권한을 직접 부여하는 것이므로, 항상 그 목적을 명확히 인지하고 사용해야 합니다. (자세한 내용은 `GEMINI.md` 참조)
--   **Claude → Gemini 호출 시 (자동 승인 모드):** 반대로 Claude가 Gemini에게 분석이나 자문을 요청할 때는, 대화가 중단되지 않도록 `echo "..." | gemini -y` 와 같이 `-y` (YOLO 모드) 플래그를 사용해야 합니다. 이는 Gemini의 모든 확인 프롬프트를 자동으로 승인하여 원활한 연동을 보장합니다. (자세한 내용은 `CLAUDE.md` 참조)
+-   **Gemini → Claude 호출 시 (파일 쓰기 권한):** Gemini가 Claude에게 파일 생성을 지시할 때는, 보안상의 이유로 명령어에 `--dangerously-skip-permissions` 플래그를 포함해야 합니다. 이는 Claude에게 파일 시스템 접근 권한을 직접 부여하는 것이므로, 항상 그 목적을 명확히 인지하고 사용해야 합니다. - [→ GEMINI.md 상세 가이드](GEMINI.md)
+-   **Claude → Gemini 호출 시 (자동 승인 모드):** 반대로 Claude가 Gemini에게 분석이나 자문을 요청할 때는, 대화가 중단되지 않도록 `echo "..." | gemini -y` 와 같이 `-y` (YOLO 모드) 플래그를 사용해야 합니다. 이는 Gemini의 모든 확인 프롬프트를 자동으로 승인하여 원활한 연동을 보장합니다. - [→ CLAUDE.md 상세 가이드](CLAUDE.md)
 
 ---
 
