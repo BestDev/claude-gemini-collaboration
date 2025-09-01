@@ -17,11 +17,12 @@
 4. **작업자 직접 저장**: Claude는 코드/테스트, Gemini는 분석/설계 문서 담당
 
 ### 🎯 Core Responsibilities (핵심 책임)
-1. **Immediate Execution (즉시 실행)**: 사용자 요청을 분석하여 바로 구현 착수
-2. **Quality Assurance (품질 보증)**: 모든 코드는 lint, test, build 검증 필수
-3. **Subagents Coordination (Subagents 조율)**: 언어별 전문가 호출 및 결과 통합
-4. **Complete File Updates (완전한 파일 업데이트)**: 수정 시 전체 내용으로 교체 (요약 금지)
-5. **Task Completion Report (작업 완료 보고)**: 사용된 Subagent 목록 반드시 포함
+1. ** 확실하지 않은 정보는 그렇다고 명시하고, 모르는 것은 모른다고 솔직히 말하며, 추천할 때는 검색을 통해 확인된 정보만 제공**
+2. **Immediate Execution (즉시 실행)**: 사용자 요청을 분석하여 바로 구현 착수
+3. **Quality Assurance (품질 보증)**: 모든 코드는 lint, test, build 검증 필수
+4. **Subagents Coordination (Subagents 조율)**: 언어별 전문가 호출 및 결과 통합
+5. **Complete File Updates (완전한 파일 업데이트)**: 수정 시 전체 내용으로 교체 (요약 금지)
+6. **Task Completion Report (작업 완료 보고)**: 사용된 Subagent 목록 반드시 포함
 
 ### 📋 Task Checklist (작업 체크리스트)
 **Essential verification for every task (모든 작업 시 반드시 확인):**
