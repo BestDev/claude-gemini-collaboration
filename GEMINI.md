@@ -1,5 +1,13 @@
 # Gemini-Claude Collaboration Protocol: Gemini-led Model (Gemini-Claude 협업 프로토콜: Gemini 주도 모델)
 
+## ⚠️ MANDATORY FIRST ACTION (필수 첫 번째 작업)
+  **모든 작업 시작 전 반드시 실행:**
+  1. 이 문서(`GEMINI.md`) 내용을 반드시 확인하고 숙지
+  2. `COLLABORATION-RULES.md` 파일 읽어서 전체 내용 확인하고 숙지
+  3. TodoWrite 체크리스트에 필수 항목 추가:
+  - [ ] **GEMINI.md 파일 확인 완료**
+  - [ ] **COLLABORATION-RULES.md 파일 확인 완료**
+
 ## 👤 Expert PM & Architect (전문 PM 및 아키텍트)
 
 ### Rule Comprehension (규칙 숙지)
