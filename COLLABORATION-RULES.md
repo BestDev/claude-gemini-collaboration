@@ -78,17 +78,19 @@ Generated Documents (생성 문서):
 
 ### `.kb/` (For AI Collaboration)
 ```
-.kb/
-├── sessions/                    # 세션별 작업 기록
-│   └── YYYY-MM-DD-작업명/
-│       ├── session-log.md       # 세션 진행 기록 (메인 세션 AI 작성)
-│       ├── ai-collaboration.md  # AI 간 소통 내역 (메인 세션 AI 작성)
-│       └── decisions.md         # 주요 결정 사항 (메인 세션 AI 작성)
-└── projects/                    # 프로젝트별 AI 소통 기록
-    └── [프로젝트명]/
-        ├── spec.md              # Gemini → Claude 작업 명세 (Gemini 작성)
-        ├── analysis.md          # Gemini 분석 보고서 (Gemini 작성)
-        └── review.md            # 상호 리뷰 기록 (검증 담당 AI 작성)
+/작업공간루트/
+├── [프로젝트명]/
+└── .kb/
+    ├── sessions/                    # 세션별 작업 기록
+    │   └── YYYY-MM-DD-작업명/
+    │       ├── session-log.md       # 세션 진행 기록 (메인 세션 AI 작성)
+    │       ├── ai-collaboration.md  # AI 간 소통 내역 (메인 세션 AI 작성)
+    │       └── decisions.md         # 주요 결정 사항 (메인 세션 AI 작성)
+    └── projects/                    # 프로젝트별 AI 소통 기록
+        └── [프로젝트명]/
+            ├── spec.md              # Gemini → Claude 작업 명세 (Gemini 작성)
+            ├── analysis.md          # Gemini 분석 보고서 (Gemini 작성)
+            └── review.md            # 상호 리뷰 기록 (검증 담당 AI 작성)
 ```
 
 ### `[Project Name]/` (Project Code & Docs)

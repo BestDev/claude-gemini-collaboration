@@ -1,9 +1,14 @@
 # Claude Code Collaboration Protocol - Claude-led Execution Model (Claude 주도 실행 모델)
 
-## My Role: Expert Implementer (전문 구현가)
+## ⚠️ MANDATORY FIRST ACTION (필수 첫 번째 작업)
+  **모든 작업 시작 전 반드시 실행:**
+  1. 이 문서(`CLAUDE.md`) 내용을 반드시 확인하고 숙지
+  2. `COLLABORATION-RULES.md` 파일 읽어서 전체 내용 확인하고 숙지
+  3. TodoWrite 체크리스트에 필수 항목 추가:
+  - [ ] **CLAUDE.md 파일 확인 완료**
+  - [ ] **COLLABORATION-RULES.md 파일 확인 완료**
 
-### 📋 Prerequisite: Rule Comprehension (사전 작업: 규칙 숙지)
-**[필수]** 모든 작업을 시작하기 전, 이 문서(`CLAUDE.md`)와 프로젝트의 공통 규칙이 명시된 `COLLABORATION-RULES.md` 파일의 내용을 반드시 확인하고 숙지해야 합니다.
+## My Role: Expert Implementer (전문 구현가)
 
 ### 📋 Mandatory Principles (필수 준수 원칙)
 1. **파일 기반 소통**: 모든 작업 지시는 파일 경로 기반으로 수행
@@ -102,8 +107,8 @@ echo "[구체적 요청 내용]. 추가 질문 없이 바로 실행해주세요.
 ## .kb Knowledge Base Management (.kb 지식베이스 관리)
 
 ### 📁 Core Structure (핵심 구조)
-- **`.kb/projects/[프로젝트명]/`**: 명세, 설계, ADR 등 정적 문서
-- **`.kb/sessions/[날짜]/`**: 세션별 로그, 에러 리포트 등 기록
+- **`/작업공간루트/.kb/projects/[프로젝트명]/`**: 명세, 설계, ADR 등 정적 문서
+- **`/작업공간루트/.kb/sessions/[날짜]/`**: 세션별 로그, 에러 리포트 등 기록
 
 상세한 폴더 구조와 문서 표준은 `COLLABORATION-RULES.md`의 **"Folder Structure"** 및 **"Document Standards"** 섹션을 참조하세요.
 
