@@ -164,6 +164,7 @@ echo "[구체적 요청 내용]. 추가 질문 없이 바로 실행해주세요.
 
 모든 작업 완료 전 반드시 확인:
 - [ ] **Code Quality Verification (코드 품질 검증)**: 가능한 경우 lint/test/build 실행
+- [ ] **Subagent Work Documentation (서브에이전트 작업 문서화)**: 모든 서브에이전트는 작업 내용을 `/작업공간루트/[프로젝트명]/.kb/sessions/작업명/[서브에이전트명]-작업내용키워드.md`에 요약 기록
 - [ ] **Subagent Usage Report (Subagent 사용 보고)**: 사용된 Subagents 목록 명시
 - [ ] **Documentation Update (문서 업데이트)**: 필요시 README.md 및 .kb 문서 갱신
 

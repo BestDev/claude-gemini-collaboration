@@ -43,7 +43,7 @@ Specific Conditions (구체적 조건):
 - 사용자가 "세션 기록해줘", "문서화해줘" 요청하는 경우
 
 Auto-Generated (자동 생성):
-✅ .kb/sessions/YYYY-MM-DD-작업명/session-log.md
+✅ .kb/sessions/작업명/session-log.md
 ```
 
 ### 📝 Optional Creation (선택적 생성) - 요청 시에만
@@ -82,10 +82,11 @@ Generated Documents (생성 문서):
 ├── [프로젝트명]/
 └── .kb/
     ├── sessions/                    # 세션별 작업 기록
-    │   └── YYYY-MM-DD-작업명/
+    │   └── 작업명/
     │       ├── session-log.md       # 세션 진행 기록 (메인 세션 AI 작성)
     │       ├── ai-collaboration.md  # AI 간 소통 내역 (메인 세션 AI 작성)
-    │       └── decisions.md         # 주요 결정 사항 (메인 세션 AI 작성)
+    │       ├── decisions.md         # 주요 결정 사항 (메인 세션 AI 작성)
+    │       └── [서브에이전트명]-작업내용키워드.md # 서브에이전트 작업 내용 요약 (담당 서브 에이전트 작성)
     └── projects/                    # 프로젝트별 AI 소통 기록
         └── [프로젝트명]/
             ├── spec.md              # Gemini → Claude 작업 명세 (Gemini 작성)
@@ -175,7 +176,7 @@ tetris_v2/
 ### 📝 Session Log Format (세션 로그 형식)
 ```markdown
 # 세션 기록: [작업명]
-- 날짜 (Date): YYYY-MM-DD
+- 날짜 (Date): YYYY-MM-DD HH:MM:SS
 - 참여 AI (Participants): Claude, Gemini 등
 - 목표 (Goal): [이 세션의 목표]
 
