@@ -51,9 +51,14 @@
 # 기본 호출 (2분 타임아웃)
 echo "[구체적 요청 내용]. 추가 질문 없이 바로 실행해주세요." | gemini -y
 
-# 긴 작업용 호출 (타임아웃 확장)
-timeout 10m echo "[복잡한 요청 내용]. 추가 질문 없이 바로 실행해주세요." | gemini -y
+# 긴 작업용 호출 (10분 타임아웃 - Bash 도구 timeout 매개변수 사용)
+echo "[복잡한 요청 내용]. 추가 질문 없이 바로 실행해주세요." | gemini -y
+# 위 명령어를 Bash 도구에서 실행 시 timeout: 600000 매개변수 추가
 ```
+**중요**: Claude Code의 Bash 도구에서는 `timeout` 명령어가 아닌 도구의 `timeout` 매개변수를 사용해야 합니다.
+- 기본값: 120000ms (2분)
+- 최대값: 600000ms (10분)
+- 설정방법: Bash 도구 호출 시 `timeout: [밀리초]` 매개변수 추가
 
 #### Mandatory Invocation Triggers (필수 호출 시점)
 1. **Complex Requirement Analysis (복잡한 요구사항 분석)**
