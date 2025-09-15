@@ -199,6 +199,14 @@ tetris_v2/
 - **Claude → Gemini 예시**: `echo "이 아키텍처 설계에 대한 보안상 문제점이 있는지 분석해주세요" | gemini -y`
 - **Gemini → Claude 예시**: `claude -p "파일 '.kb/projects/game/spec.md'를 참조하여 게임 로직을 구현해주세요" --dangerously-skip-permissions`
 
+### Timeout Configuration (타임아웃 설정)
+- **기본 타임아웃**: 2분 (Claude Code 기본값)
+- **확장 타임아웃**: 복잡한 작업 시 `timeout` 명령어 사용
+- **권장 설정**:
+    - 간단한 분석 (참고 웹페이지 2개 이상): `timeout 5m`
+    - 복잡한 분석 (참고 웹페이지 5개 이상): `timeout 10m`
+    - 대규모 프로젝트 (참고 웹페이지 10개 이상): `timeout 30m`
+
 ### Project Folder Structure (프로젝트 폴더 구조)
 - **규칙**: 모든 개별 프로젝트는 루트 디렉토리에 자신의 이름을 딴 전용 폴더 생성
 - **구조**: 모든 관련 파일은 해당 폴더 내에 위치

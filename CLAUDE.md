@@ -48,7 +48,11 @@
 
 #### Standard Invocation Method (표준 호출 방법)
 ```bash
+# 기본 호출 (2분 타임아웃)
 echo "[구체적 요청 내용]. 추가 질문 없이 바로 실행해주세요." | gemini -y
+
+# 긴 작업용 호출 (타임아웃 확장)
+timeout 10m echo "[복잡한 요청 내용]. 추가 질문 없이 바로 실행해주세요." | gemini -y
 ```
 
 #### Mandatory Invocation Triggers (필수 호출 시점)
