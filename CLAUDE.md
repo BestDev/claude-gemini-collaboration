@@ -81,7 +81,9 @@ echo "[복잡한 요청 내용]. 추가 질문 없이 바로 실행해주세요.
 #### Invocation Rules (호출 규칙)
 - **YOLO Mode Required (YOLO 모드 필수)**: 항상 `-y` 플래그 사용
 - **Clear Instructions (명확한 지시)**: "추가 질문 없이 바로 실행" 반드시 포함
-- **File-Based Recommended (파일 기반 권장)**: 복잡한 내용은 파일로 저장 후 경로 전달
+- **File-Based Mandatory (파일 기반 필수)**: 복잡한 내용은 반드시 파일로 저장 후 경로 전달
+  - Claude → Gemini: 질문 내용을 `.kb/sessions/[세션명]/claude-[질문 키워드]-question.md`에 저장 후 파일 경로로 전달
+  - Gemini → Claude: 답변 내용을 `.kb/sessions/[세션명]/gemini-[질문 키워드]-response.md`에 저장 후 파일 경로로 전달
 
 ## Claude-led Workflow (Claude 주도 워크플로우)
 

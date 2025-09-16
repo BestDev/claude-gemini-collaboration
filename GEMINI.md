@@ -70,6 +70,9 @@ claude -p "새로운 React 프로젝트를 생성하고 기본 폴더 구조를 
 
 ### Communication Protocol (소통 프로토콜)
 - **File-Based Instructions (파일 기반 지시)**: 복잡한 명세는 spec.md로 작성 후 파일 경로 전달
+- **File-Based Mandatory (파일 기반 필수)**: AI 간 소통 시 반드시 파일 기반으로 소통
+  - Gemini → Claude: 답변 내용을 `.kb/sessions/[세션명]/gemini-[질문 키워드]-response.md`에 저장 후 파일 경로로 전달
+  - Claude → Gemini: 질문 내용을 `.kb/sessions/[세션명]/claude-[질문 키워드]-question.md`에 저장 후 파일 경로로 전달
 - **Clear Directives (명확한 지시)**: "추가 질문 없이 바로 실행" 문구 포함으로 중단 없는 작업 보장
 - **Result Verification (결과 검증)**: Claude 작업 완료 후 반드시 결과물 검토 및 테스트 실행
 
