@@ -171,6 +171,39 @@ echo "[복잡한 요청 내용]. 추가 질문 없이 바로 실행해주세요.
 - **Multi-Language (다중 언어)**: 주 언어 전문가 + 보조 언어 전문가 순차 호출
 - **Architecture + Implementation (아키텍처 + 구현)**: project-analyzer → 해당 언어 전문가 순서
 
+### 🚀 Subagent Invocation Methods (Subagent 호출 방법)
+
+#### ✅ Correct Subagent Invocation (올바른 서브에이전트 호출)
+**Claude Code 내부에서 서브에이전트 호출 시 사용:**
+
+##### 1. Task Tool Method (Task 도구 방법) - 권장
+```
+Task 도구 사용 시 subagent_type 매개변수로 특정 서브에이전트 지정
+- subagent_type: "python-expert"
+- subagent_type: "unreal-expert"
+- subagent_type: "project-analyzer"
+```
+
+##### 2. Explicit Request Method (명시적 요청 방법)
+```
+"I'll use the [서브에이전트명] agent to [작업 내용]"
+예시:
+- "I'll use the unreal-expert agent to implement weapon system"
+- "Let me use the python-expert agent to optimize this code"
+- "I'll engage the project-analyzer agent to review architecture"
+```
+
+##### 3. Automatic Delegation (자동 위임)
+- Claude Code가 작업 내용을 분석하여 적절한 서브에이전트 자동 선택
+- 서브에이전트 설명에 "use PROACTIVELY" 포함 시 자동 호출 활성화
+
+#### ⚠️ Important Distinction (중요한 구분)
+**서브에이전트 호출 ≠ Gemini CLI 호출:**
+- ❌ **잘못된 방법**: `echo "unreal-expert에게 작업 요청" | gemini -y`
+- ✅ **올바른 방법**: Task 도구 또는 명시적 요청 사용
+
+**Gemini CLI 호출은 별도 섹션 참조** (외부 협업 전용)
+
 ## Quality Assurance (품질 보증)
 
 모든 작업 완료 전 반드시 확인:
