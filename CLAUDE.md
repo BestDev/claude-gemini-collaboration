@@ -15,17 +15,21 @@
 2. **프로젝트 폴더 구조**: 각 프로젝트는 루트에 전용 폴더 생성 필수
 3. **`.kb` 지식베이스**: 중요 산출물은 `.kb` 폴더에 체계적 기록
 4. **작업자 직접 저장**: Claude는 코드/테스트, Gemini는 분석/설계 문서 담당
+5. **🔍 사실 기반 개발 (FACT-BASED DEVELOPMENT)**: 추측 금지, 반드시 검증 후 구현
 
 ### 🎯 Core Responsibilities (핵심 책임)
-1. ** 확실하지 않은 정보는 그렇다고 명시하고, 모르는 것은 모른다고 솔직히 말하며, 추천할 때는 검색을 통해 확인된 정보만 제공**
-2. **Immediate Execution (즉시 실행)**: 사용자 요청을 분석하여 바로 구현 착수
-3. **Quality Assurance (품질 보증)**: 모든 코드는 lint, test, build 검증 필수
-4. **Subagents Coordination (Subagents 조율)**: 언어별 전문가 호출 및 결과 통합
-5. **Complete File Updates (완전한 파일 업데이트)**: 수정 시 전체 내용으로 교체 (요약 금지)
-6. **Task Completion Report (작업 완료 보고)**: 사용된 Subagent 목록 반드시 포함
+1. **The Facts First (사실 확인 우선)**: 확실하지 않은 정보는 그렇다고 명시하고, 모르는 것은 모른다고 솔직히 말하며, 추천할 때는 검색을 통해 확인된 정보만 제공
+2. **Adhere to validation protocols (검증 프로토콜 준수)**: 모든 구현 전 반드시 `verification-protocol.md` 따라 단계별 검증
+3. **Immediate Execution (즉시 실행)**: 사용자 요청을 분석하여 바로 구현 착수 (단, 검증 완료 후)
+4. **Quality Assurance (품질 보증)**: 모든 코드는 lint, test, build 검증 필수
+5. **Subagents Coordination (Subagents 조율)**: 언어별 전문가 호출 및 결과 통합
+6. **Complete File Updates (완전한 파일 업데이트)**: 수정 시 전체 내용으로 교체 (요약 금지)
+7. **Task Completion Report (작업 완료 보고)**: 사용된 Subagent 목록 반드시 포함
 
 ### 📋 Task Checklist (작업 체크리스트)
 **Essential verification for every task (모든 작업 시 반드시 확인):**
+- [ ] **🔍 Fact-Based Verification (사실 기반 검증)**: `verification-protocol.md` 프로토콜 준수
+- [ ] **📊 Confidence Level (확신도 표시)**: 🟢확인됨/🟡추정됨/🔴불확실 명시
 - [ ] **Project Folder Setup (프로젝트 전용 폴더 생성/확인)**
 - [ ] **Knowledge Base Structure (필요시 `.kb/projects/[프로젝트명]/` 구조 생성)**
 - [ ] **Appropriate Subagent Selection (적절한 Subagent 선택 및 호출)**
@@ -170,39 +174,6 @@ echo "[복잡한 요청 내용]. 추가 질문 없이 바로 실행해주세요.
 - **Single Language (단일 언어)**: 해당 언어 전문가 1개만 사용
 - **Multi-Language (다중 언어)**: 주 언어 전문가 + 보조 언어 전문가 순차 호출
 - **Architecture + Implementation (아키텍처 + 구현)**: project-analyzer → 해당 언어 전문가 순서
-
-### 🚀 Subagent Invocation Methods (Subagent 호출 방법)
-
-#### ✅ Correct Subagent Invocation (올바른 서브에이전트 호출)
-**Claude Code 내부에서 서브에이전트 호출 시 사용:**
-
-##### 1. Task Tool Method (Task 도구 방법) - 권장
-```
-Task 도구 사용 시 subagent_type 매개변수로 특정 서브에이전트 지정
-- subagent_type: "python-expert"
-- subagent_type: "unreal-expert"
-- subagent_type: "project-analyzer"
-```
-
-##### 2. Explicit Request Method (명시적 요청 방법)
-```
-"I'll use the [서브에이전트명] agent to [작업 내용]"
-예시:
-- "I'll use the unreal-expert agent to implement weapon system"
-- "Let me use the python-expert agent to optimize this code"
-- "I'll engage the project-analyzer agent to review architecture"
-```
-
-##### 3. Automatic Delegation (자동 위임)
-- Claude Code가 작업 내용을 분석하여 적절한 서브에이전트 자동 선택
-- 서브에이전트 설명에 "use PROACTIVELY" 포함 시 자동 호출 활성화
-
-#### ⚠️ Important Distinction (중요한 구분)
-**서브에이전트 호출 ≠ Gemini CLI 호출:**
-- ❌ **잘못된 방법**: `echo "unreal-expert에게 작업 요청" | gemini -y`
-- ✅ **올바른 방법**: Task 도구 또는 명시적 요청 사용
-
-**Gemini CLI 호출은 별도 섹션 참조** (외부 협업 전용)
 
 ## Quality Assurance (품질 보증)
 
