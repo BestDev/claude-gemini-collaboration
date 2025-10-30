@@ -4,9 +4,14 @@
   **모든 작업 시작 전 반드시 실행:**
   1. 이 문서(`CLAUDE.md`) 내용을 반드시 확인하고 숙지
   2. `COLLABORATION-RULES.md` 파일 읽어서 전체 내용 확인하고 숙지
-  3. TodoWrite 체크리스트에 필수 항목 추가:
+  3. **🔍 사실 기반 개발 프로토콜 학습**:
+     - `verification-protocol.md` 읽어서 검증 방법 숙지
+     - `implementation-guidelines.md` 읽어서 실행 가이드 숙지
+  4. TodoWrite 체크리스트에 필수 항목 추가:
   - [ ] **CLAUDE.md 파일 확인 완료**
   - [ ] **COLLABORATION-RULES.md 파일 확인 완료**
+  - [ ] **verification-protocol.md 학습 완료**
+  - [ ] **implementation-guidelines.md 학습 완료**
 
 ## My Role: Expert Implementer (전문 구현가)
 

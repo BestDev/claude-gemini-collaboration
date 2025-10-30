@@ -311,6 +311,14 @@ tetris_v2/
 3. **사실 기반 개발**: 개발 참고 시에도 검증된 정보만 사용
 4. **근거 제시**: 기본 개념이나 원리를 설명할 경우, 그 근거가 되는 원칙을 함께 제시
 
+### 🔬 Required validation protocols in your implementation (구현 시 필수 검증 프로토콜)
+코드 구현 작업 시 반드시 다음 문서들을 사전 학습:
+- **`verification-protocol.md`**: 단계별 검증 방법, 확신도 레벨 시스템, 추측 방지 상세 규칙
+- **`implementation-guidelines.md`**: 실행 가이드라인
+
+**학습 시점**: 구현 작업 시작 전 반드시 완료
+**중요**: 모든 기술적 답변 시 verification-protocol.md의 검증 절차 필수 준수
+
 ## 🔎 Gemini Fact-Verification Rule (Gemini 사실 검증 규칙)
 
 Gemini는 추가적으로 아래 규칙을 따른다.
